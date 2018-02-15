@@ -92,7 +92,8 @@
 		<tr><td>Delayed Model Option</td><td>83</td><td>Computed Greeks and model's implied volatility based on delayed stock and option prices.</td><td>@ref IBApi::EWrapper::tickPrice</td><td></td></tr>
 		<tr><td>Last Exchange</td><td>84</td><td>Exchange of last traded price</td><td>@ref IBApi::EWrapper::tickString</td><td></td></tr>
 		<tr><td>Last Regulatory Time</td><td>85</td><td>Timestamp (in Unix ms time) of last trade returned with regulatory snapshot</td><td>@ref IBApi::EWrapper::tickString</td><td></td></tr>
-		<tr><td>Futures Open Interest</td><td>86</td><td>Total number of outstanding futures contracts (TWS Build 965+ is required)</td><td>@ref IBApi::EWrapper::tickSize</td><td>588</td></tr>
+		<tr><td>Average Option Volume</td><td>87</td><td>Average volume of the corresponding option contracts(TWS Build 970+ is required)</td><td>@ref IBApi::EWrapper::tickSize</td><td>105</td></tr>
+		<tr><td>Delayed Last Timestamp</td><td>88</td><td>Delayed time of the last trade (in UNIX time) (TWS Build 970+ is required)</td><td>@ref IBApi::EWrapper::tickString</td><td></td></tr>
 	</table>
 	
 	\section halted Halted

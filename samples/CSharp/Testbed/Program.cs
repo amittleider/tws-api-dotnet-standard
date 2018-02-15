@@ -648,39 +648,39 @@ namespace Samples
             //! [order_submission]
 
             //! [faorderoneaccount]
-            //Order faOrderOneAccount = OrderSamples.MarketOrder("BUY", 100);
+            Order faOrderOneAccount = OrderSamples.MarketOrder("BUY", 100);
             // Specify the Account Number directly
-           // faOrderOneAccount.Account = "DU119915";
-            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);
+            faOrderOneAccount.Account = "DU119915";
+            client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);
             //! [faorderoneaccount]
 
             //! [faordergroupequalquantity]
-            //Order faOrderGroupEQ = OrderSamples.LimitOrder("SELL", 200, 2000);
-            //faOrderGroupEQ.FaGroup = "Group_Equal_Quantity";
-            //faOrderGroupEQ.FaMethod = "EqualQuantity";
-            //client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);
+            Order faOrderGroupEQ = OrderSamples.LimitOrder("SELL", 200, 2000);
+            faOrderGroupEQ.FaGroup = "Group_Equal_Quantity";
+            faOrderGroupEQ.FaMethod = "EqualQuantity";
+            client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);
             //! [faordergroupequalquantity]
 
             //! [faordergrouppctchange]
-            //Order faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0); ;
+            Order faOrderGroupPC = OrderSamples.MarketOrder("BUY", 0); ;
             // You should not specify any order quantity for PctChange allocation method
-            //faOrderGroupPC.FaGroup = "Pct_Change";
-            //faOrderGroupPC.FaMethod = "PctChange";
-           // faOrderGroupPC.FaPercentage = "100";
-            //client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);
+            faOrderGroupPC.FaGroup = "Pct_Change";
+            faOrderGroupPC.FaMethod = "PctChange";
+            faOrderGroupPC.FaPercentage = "100";
+            client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);
             //! [faordergrouppctchange]
 
             //! [faorderprofile]
-            //Order faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100);
-            //faOrderProfile.FaProfile = "Percent_60_40";
-            //client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
+            Order faOrderProfile = OrderSamples.LimitOrder("BUY", 200, 100);
+            faOrderProfile.FaProfile = "Percent_60_40";
+            client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);
             //! [faorderprofile]
 		
-	    //! [modelorder]
-            //Order modelOrder = OrderSamples.LimitOrder("BUY", 200, 100);
-            //modelOrder.Account = "DF12345";  // master FA account number
-            //modelOrder.ModelCode = "Technology"; // model for tech stocks first created in TWS
-            //client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);
+			//! [modelorder]
+            Order modelOrder = OrderSamples.LimitOrder("BUY", 200, 100);
+            modelOrder.Account = "DF12345";  // master FA account number
+            modelOrder.ModelCode = "Technology"; // model for tech stocks first created in TWS
+            client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);
             //! [modelorder]
 
             //client.placeOrder(nextOrderId++, ContractSamples.OptionAtBOX(), OrderSamples.Block("BUY", 50, 20));

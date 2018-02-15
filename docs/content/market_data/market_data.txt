@@ -65,7 +65,7 @@
 	
 	<br>
 	
-	-\subpage delayed
+	-\subpage delayed_data
 	
 	<br><br>
 
