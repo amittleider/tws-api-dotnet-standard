@@ -75,6 +75,7 @@ var NAVTREE =
         [ "The charts shown by my charting software differ from the ones shown by the TWS", "third_party.html#tp_data_mismatch", null ]
       ] ]
     ] ],
+    [ "Delayed Streaming Data", "delayed.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ]
     ] ],
@@ -95,10 +96,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "account_portfolio.html",
-"classIBApi_1_1EClient.html#a876ac4a65e22d219d1055eb0282b07e9",
-"classIBApi_1_1Order.html#ad2926dec2ed4a0632cc5c833a102c6a0",
-"functions_prop_0x79.html",
-"realtime_bars.html#rt_bars_req"
+"classIBApi_1_1EClient.html#a80207770f2654147d5a1c4c985748f38",
+"classIBApi_1_1Order.html#ad20733800e5dc40758b9d7f07dccb4ab",
+"functions_prop_0x75.html",
+"realtime_bars.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

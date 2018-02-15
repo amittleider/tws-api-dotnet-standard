@@ -16,5 +16,5 @@ var market_data =
       [ "Receiving", "realtime_bars.html#rt_bars_rec", null ],
       [ "Canceling", "realtime_bars.html#rt_bars_cancel", null ]
     ] ],
-    [ "Delayed Streaming Data", "delayed.html", null ]
+    [ "Delayed Streaming Data", "delayed_data.html", null ]
 ];

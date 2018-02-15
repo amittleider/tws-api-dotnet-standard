@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('md_request.html','');});
 <div class="line">    m_pClient-&gt;reqMktData(1002, ContractSamples::OptionWithLocalSymbol(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1101, ContractSamples.USStockAtSmart(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1000, ContractSamples.USStockAtSmart(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1001, ContractSamples.StockComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
@@ -194,7 +194,7 @@ Streaming Data Snapshots</h1>
 <div class="fragment"><div class="line">    m_pClient-&gt;reqMktData(1003, ContractSamples::FutureComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, TagValueListSPtr());</div>
 </div><!-- fragment -->  </li>
 <li>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1003, ContractSamples.FutureComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        self.reqMktData(1002, ContractSamples.FutureComboContract(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <h4>End marker reception:</h4>
@@ -261,7 +261,7 @@ Regulatory Snapshots</h1>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;        <span class="comment"># Each regulatory snapshot request incurs a 0.01 USD fee</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1014, ContractSamples.USStock(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, [])</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;        self.reqMktData(1003, ContractSamples.USStock(), <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, [])</div>
 </div><!-- fragment -->  </li>
 </ul>
 <p>The following table lists the cost and maximum allocation for regulatory snapshot quotes:</p>

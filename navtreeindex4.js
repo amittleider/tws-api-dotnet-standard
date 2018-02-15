@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"realtime_bars.html":[7,5],
+"realtime_bars.html#rt_bars_cancel":[7,5,2],
+"realtime_bars.html#rt_bars_rec":[7,5,1],
 "realtime_bars.html#rt_bars_req":[7,5,0],
 "reuters_fundamentals.html":[14],
 "reuters_fundamentals.html#report_type":[14,0],

@@ -136,10 +136,10 @@ Account Allocations</h1>
 <p>In linked accounts (not Financial Advisor accounts) in particular, it will be necessary to specify an account number in the IBApi::Order::account field with every order placed.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//Order faOrderOneAccount = OrderSamples.MarketOrder(&quot;BUY&quot;, 100);</span></div>
+<div class="fragment"><div class="line">            Order faOrderOneAccount = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 100);</div>
 <div class="line">            <span class="comment">// Specify the Account Number directly</span></div>
-<div class="line">           <span class="comment">// faOrderOneAccount.Account = &quot;DU119915&quot;;</span></div>
-<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);</span></div>
+<div class="line">            faOrderOneAccount.Account = <span class="stringliteral">&quot;DU119915&quot;</span>;</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStock(), faOrderOneAccount);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderOneAccount = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 100);</div>
@@ -170,10 +170,10 @@ Account Allocations</h1>
 <p>For <em>EqualQuantity</em>, <em>NetLiq</em> and <em>AvailableEquity</em> allocation methods, you need to specify the <a class="el" href="classIBApi_1_1Order.html#a15c0b93f51d0e3791a669abb9932aa1e">IBApi.Order.FaGroup</a> and <a class="el" href="classIBApi_1_1Order.html#a6d3a08135f6b8e8486250d418bf38d2b">IBApi.Order.FaMethod</a> parameters.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//Order faOrderGroupEQ = OrderSamples.LimitOrder(&quot;SELL&quot;, 200, 2000);</span></div>
-<div class="line">            <span class="comment">//faOrderGroupEQ.FaGroup = &quot;Group_Equal_Quantity&quot;;</span></div>
-<div class="line">            <span class="comment">//faOrderGroupEQ.FaMethod = &quot;EqualQuantity&quot;;</span></div>
-<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);</span></div>
+<div class="fragment"><div class="line">            Order faOrderGroupEQ = OrderSamples.LimitOrder(<span class="stringliteral">&quot;SELL&quot;</span>, 200, 2000);</div>
+<div class="line">            faOrderGroupEQ.FaGroup = <span class="stringliteral">&quot;Group_Equal_Quantity&quot;</span>;</div>
+<div class="line">            faOrderGroupEQ.FaMethod = <span class="stringliteral">&quot;EqualQuantity&quot;</span>;</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.SimpleFuture(), faOrderGroupEQ);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderGroupEQ = OrderSamples.LimitOrder(<span class="stringliteral">&quot;SELL&quot;</span>, 200, 2000);</div>
@@ -203,12 +203,12 @@ Account Allocations</h1>
 <p>For <em>PctChange</em> allocation methods, you should <b>NOT</b> specify the order size but you need to specify <a class="el" href="classIBApi_1_1Order.html#ab25af3fc2d87ea758ee456d6911825ee">IBApi.Order.FaPercentage</a> parameter.</p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//Order faOrderGroupPC = OrderSamples.MarketOrder(&quot;BUY&quot;, 0); ;</span></div>
+<div class="fragment"><div class="line">            Order faOrderGroupPC = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 0); ;</div>
 <div class="line">            <span class="comment">// You should not specify any order quantity for PctChange allocation method</span></div>
-<div class="line">            <span class="comment">//faOrderGroupPC.FaGroup = &quot;Pct_Change&quot;;</span></div>
-<div class="line">            <span class="comment">//faOrderGroupPC.FaMethod = &quot;PctChange&quot;;</span></div>
-<div class="line">           <span class="comment">// faOrderGroupPC.FaPercentage = &quot;100&quot;;</span></div>
-<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);</span></div>
+<div class="line">            faOrderGroupPC.FaGroup = <span class="stringliteral">&quot;Pct_Change&quot;</span>;</div>
+<div class="line">            faOrderGroupPC.FaMethod = <span class="stringliteral">&quot;PctChange&quot;</span>;</div>
+<div class="line">            faOrderGroupPC.FaPercentage = <span class="stringliteral">&quot;100&quot;</span>;</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.EurGbpFx(), faOrderGroupPC);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderGroupPC = OrderSamples.MarketOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 0);</div>
@@ -248,9 +248,9 @@ Account Allocations</h1>
 <p><b>Place an Order for an Account Profile</b></p>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//Order faOrderProfile = OrderSamples.LimitOrder(&quot;BUY&quot;, 200, 100);</span></div>
-<div class="line">            <span class="comment">//faOrderProfile.FaProfile = &quot;Percent_60_40&quot;;</span></div>
-<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);</span></div>
+<div class="fragment"><div class="line">            Order faOrderProfile = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
+<div class="line">            faOrderProfile.FaProfile = <span class="stringliteral">&quot;Percent_60_40&quot;</span>;</div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.EuropeanStock(), faOrderProfile);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order faOrderProfile = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
@@ -277,10 +277,10 @@ Account Allocations</h1>
 Model Allocations</h1>
 <ul id="tab">
 <li class="active">
-<div class="fragment"><div class="line">            <span class="comment">//Order modelOrder = OrderSamples.LimitOrder(&quot;BUY&quot;, 200, 100);</span></div>
-<div class="line">            <span class="comment">//modelOrder.Account = &quot;DF12345&quot;;  // master FA account number</span></div>
-<div class="line">            <span class="comment">//modelOrder.ModelCode = &quot;Technology&quot;; // model for tech stocks first created in TWS</span></div>
-<div class="line">            <span class="comment">//client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);</span></div>
+<div class="fragment"><div class="line">            Order modelOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>
+<div class="line">            modelOrder.Account = <span class="stringliteral">&quot;DF12345&quot;</span>;  <span class="comment">// master FA account number</span></div>
+<div class="line">            modelOrder.ModelCode = <span class="stringliteral">&quot;Technology&quot;</span>; <span class="comment">// model for tech stocks first created in TWS</span></div>
+<div class="line">            client.placeOrder(nextOrderId++, ContractSamples.USStock(), modelOrder);</div>
 </div><!-- fragment -->  </li>
 <li>
 <div class="fragment"><div class="line">        Order modelOrder = OrderSamples.LimitOrder(<span class="stringliteral">&quot;BUY&quot;</span>, 200, 100);</div>

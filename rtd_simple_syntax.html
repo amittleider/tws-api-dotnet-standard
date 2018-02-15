@@ -353,6 +353,8 @@ Generic Tick Types</h2>
 <td>Short-Term Volume 10 Minutes</td><td>"ShortTermVolume10Min"</td><td>The past ten minutes volume. Interpolation may be applied.</td><td>595 </td></tr>
 <tr>
 <td>Futures Open Interest</td><td>"FuturesOpenInterest"</td><td>Total number of outstanding futures contracts (TWS Build 965+ is required)</td><td>588 </td></tr>
+<tr>
+<td>Average Option Volume</td><td>"AvgOptVolume"</td><td>Average volume of the corresponding option contracts (TWS Build 970+ is required)</td><td>105 </td></tr>
 </table>
 <p>By default, all <b>Generic Tick Types</b> are automatically requested. User just need to directly specify the <b>Topic</b> as the name of a generic tick type to populate the data to Excel.</p>
 <p>In order to consume less data resource and make your market data request more efficient, you can directly specify the <b>Generic Tick Type</b> to be requested by defining string <em>"genticks=id1,id2,..."</em>.</p>
@@ -367,25 +369,27 @@ Delayed Tick Types</h2>
 <tr>
 <td>Delayed Bid Size</td><td>"DelayedBidSize"</td><td>Number of contracts (or lots) offered at the bid price. </td></tr>
 <tr>
-<td>DelayedBid Price</td><td>"DelayedBid"</td><td>Highest bid price for the contract. </td></tr>
+<td>Delayed Bid Price</td><td>"DelayedBid"</td><td>Highest bid price for the contract. </td></tr>
 <tr>
-<td>DelayedAsk Price</td><td>"DelayedAsk"</td><td>Lowest offer price for the contract. </td></tr>
+<td>Delayed Ask Price</td><td>"DelayedAsk"</td><td>Lowest offer price for the contract. </td></tr>
 <tr>
-<td>DelayedAsk Size</td><td>"DelayedAskSize"</td><td>Number of contracts (or lots) offered at the ask price. </td></tr>
+<td>Delayed Ask Size</td><td>"DelayedAskSize"</td><td>Number of contracts (or lots) offered at the ask price. </td></tr>
 <tr>
-<td>DelayedLast Price</td><td>"DelayedLast"</td><td>Last price at which the contract traded. </td></tr>
+<td>Delayed Last Price</td><td>"DelayedLast"</td><td>Last price at which the contract traded. </td></tr>
 <tr>
-<td>DelayedLast Size</td><td>"DelayedLastSize"</td><td>Number of contracts or lots traded at the last price. </td></tr>
+<td>Delayed Last Size</td><td>"DelayedLastSize"</td><td>Number of contracts or lots traded at the last price. </td></tr>
 <tr>
-<td>DelayedHigh</td><td>"DelayedHigh"</td><td>High price for the day. </td></tr>
+<td>Delayed High</td><td>"DelayedHigh"</td><td>High price for the day. </td></tr>
 <tr>
-<td>DelayedLow</td><td>"DelayedLow"</td><td>Low price for the day. </td></tr>
+<td>Delayed Low</td><td>"DelayedLow"</td><td>Low price for the day. </td></tr>
 <tr>
-<td>DelayedVolume</td><td>"DelayedVolume"</td><td>Trading volume for the day for the selected contract (Volume for US Stocks are quoted in lots. The actual number of shares in volume can be calculated by multiplying 100). </td></tr>
+<td>Delayed Volume</td><td>"DelayedVolume"</td><td>Trading volume for the day for the selected contract (Volume for US Stocks are quoted in lots. The actual number of shares in volume can be calculated by multiplying 100). </td></tr>
 <tr>
-<td>DelayedClose Price</td><td>"DelayedClose"</td><td>The last available closing price for the previous day. For US Equities, we use corporate action processing to get the closing price, so the close price is adjusted to reflect forward and reverse splits and cash and stock dividends.  </td></tr>
+<td>Delayed Close Price</td><td>"DelayedClose"</td><td>The last available closing price for the previous day. For US Equities, we use corporate action processing to get the closing price, so the close price is adjusted to reflect forward and reverse splits and cash and stock dividends.  </td></tr>
 <tr>
-<td>DelayedOpen Price</td><td>"DelayedOpen"</td><td>Today's opening price. The official opening price requires a market data subscription to the native exchange of a contract. </td></tr>
+<td>Delayed Open Price</td><td>"DelayedOpen"</td><td>Today's opening price. The official opening price requires a market data subscription to the native exchange of a contract. </td></tr>
+<tr>
+<td>Delayed Last Timestamp</td><td>"DelayedLastTimestamp"</td><td>Delayed time of the last trade (in UNIX time) (TWS Build 970+ is required). </td></tr>
 </table>
 <p>For example, the below formula will request the delayed bid price for IBM from Island exchange:</p>
 <p><code class="rtd_formula"> =RTD("Tws.TwsRtdServerCtrl",,"IBM@ISLAND", "DelayedBid") </code></p>
