@@ -1169,6 +1169,8 @@ Friend Class MainForm
 
     Private Const MarketDepthDataResetError As Integer = 317
 
+    Private m_binaryPath As String
+
 #End Region
 
 #Region "Form event handlers"
@@ -1919,6 +1921,7 @@ Friend Class MainForm
         m_newsArticleOptions = dlgNewsArticle.options
 
         If dlgNewsArticle.ok Then
+            m_binaryPath = dlgNewsArticle.path
             m_api.reqNewsArticle(dlgNewsArticle.requestId, dlgNewsArticle.providerCode, dlgNewsArticle.articleId, m_newsArticleOptions)
         End If
     End Sub
@@ -3202,8 +3205,10 @@ Friend Class MainForm
         If e.articleType = 0 Then
             m_utils.addListItem(Utils.ListType.ServerResponses, e.articleText)
         ElseIf e.articleType = 1 Then
-            m_utils.addListItem(Utils.ListType.ServerResponses, "article text is binary/pdf and cannot be displayed")
-
+            Dim bytes() As Byte
+            bytes = System.Convert.FromBase64String(e.articleText)
+            System.IO.File.WriteAllBytes(m_binaryPath, bytes)
+            m_utils.addListItem(Utils.ListType.ServerResponses, "Binary/pdf article was saved to " + m_binaryPath)
         End If
         m_utils.addListItem(Utils.ListType.ServerResponses, " ==== News Article End requestId=" & e.requestId & " ====")
 

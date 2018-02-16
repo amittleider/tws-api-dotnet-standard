@@ -5,14 +5,19 @@ package apidemo;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -37,6 +42,8 @@ import apidemo.util.NewTabbedPanel.NewTabPanel;
 import apidemo.util.TCombo;
 import apidemo.util.UpperField;
 import apidemo.util.VerticalPanel;
+import apidemo.util.VerticalPanel.HorzPanel;
+import apidemo.util.VerticalPanel.StackPanel;
 
 class NewsPanel extends JPanel {
     private final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
@@ -58,13 +65,30 @@ class NewsPanel extends JPanel {
     private static class RequestPanel extends JPanel {
         JTextField m_providerCode = new JTextField();
         JTextField m_articleId = new JTextField();
+        JTextField m_path = new JTextField(System.getProperty("user.dir"));
 
         RequestPanel() {
             VerticalPanel p = new VerticalPanel();
             p.add( "Provider Code", m_providerCode);
-            m_providerCode.setColumns(10);
+            m_providerCode.setColumns(20);
             p.add( "Article Id", m_articleId);
-            m_articleId.setColumns(10);
+            m_articleId.setColumns(20);
+            
+            JButton choosePathDialogButton = new JButton("...");
+            JFileChooser chooser =  new JFileChooser(m_path.getText());
+            
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            
+            choosePathDialogButton.addActionListener(e -> m_path.setText(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION ? chooser.getSelectedFile().getPath() : m_path.getText()));
+            
+            HorzPanel pathPanel = new HorzPanel();
+            
+            pathPanel.add(m_path);
+            pathPanel.add(choosePathDialogButton);
+            
+            p.add( "Path to save binary/pdf", pathPanel);
+            m_path.setColumns(20);
+                        
             setLayout( new BorderLayout() );
             add( p);
         }
@@ -104,6 +128,8 @@ class NewsPanel extends JPanel {
             NewsArticleResultsPanel panel = new NewsArticleResultsPanel();
             String providerCode = m_requestPanel.m_providerCode.getText().trim();
             String articleId = m_requestPanel.m_articleId.getText().trim();
+            String path = m_requestPanel.m_path.getText().trim() + "\\" + articleId + ".pdf";
+            panel.setPath(path);
             ApiDemo.INSTANCE.controller().reqNewsArticle(providerCode, articleId, panel);
             m_resultsPanels.addTab( "News Article: " + providerCode + " " + articleId, panel, true, true);
         }
@@ -112,6 +138,7 @@ class NewsPanel extends JPanel {
     static class NewsArticleResultsPanel extends JPanel implements INewsArticleHandler {
         JLabel m_label = new JLabel();
         JTextArea m_text = new JTextArea();
+        String m_path;
 
         NewsArticleResultsPanel() {
             JScrollPane scroll = new JScrollPane( m_text);
@@ -119,6 +146,10 @@ class NewsPanel extends JPanel {
             setLayout( new BorderLayout() );
             add( m_label, BorderLayout.NORTH);
             add( scroll);
+        }
+        
+        void setPath(String path) {
+            m_path = path;
         }
 
         @Override
@@ -128,7 +159,18 @@ class NewsPanel extends JPanel {
                 m_text.setText( articleText);
             } else if (articleType == 1){
                 m_label.setText( "Article type is binary/pdf");
-                m_text.setText( "Binary/pdf article text cannot be displayed");
+                if (articleType == 1) {
+                    try {
+                        byte[] bytes = Base64.getDecoder().decode(articleText);
+                        FileOutputStream fos = new FileOutputStream(m_path);
+                        fos.write(bytes);
+                        fos.close();
+                        m_text.setText( "Binary/pdf article was saved to " + m_path);
+                    } catch (IOException ex) {
+                        m_text.setText( "Binary/pdf article was not saved to " + m_path + " due to error: " + ex.getMessage());
+                    }
+                }
+                
             }
         }
     }

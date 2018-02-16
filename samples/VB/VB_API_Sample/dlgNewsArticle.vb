@@ -5,6 +5,7 @@
 Option Explicit On
 
 Imports System.Collections.Generic
+Imports System.IO
 
 Friend Class dlgNewsArticle
     Inherits System.Windows.Forms.Form
@@ -47,6 +48,9 @@ Friend Class dlgNewsArticle
     Public WithEvents labelReqNewsArticleArticleId As System.Windows.Forms.Label
     Public WithEvents labelReqNewsArticleProviderCode As System.Windows.Forms.Label
     Public WithEvents cmdMiscOptions As System.Windows.Forms.Button
+    Public WithEvents labelReqNewsArticlePath As System.Windows.Forms.Label
+    Public WithEvents txtReqNewsArticlePath As System.Windows.Forms.TextBox
+    Friend WithEvents cmdSelectFolderDialog As System.Windows.Forms.Button
     Public WithEvents labelReqNewsArticleRequestId As System.Windows.Forms.Label
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
@@ -63,6 +67,9 @@ Friend Class dlgNewsArticle
         Me.labelReqNewsArticleProviderCode = New System.Windows.Forms.Label()
         Me.labelReqNewsArticleRequestId = New System.Windows.Forms.Label()
         Me.cmdMiscOptions = New System.Windows.Forms.Button()
+        Me.labelReqNewsArticlePath = New System.Windows.Forms.Label()
+        Me.txtReqNewsArticlePath = New System.Windows.Forms.TextBox()
+        Me.cmdSelectFolderDialog = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -72,7 +79,7 @@ Friend Class dlgNewsArticle
         Me.cmdOk.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOk.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdOk.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdOk.Location = New System.Drawing.Point(57, 132)
+        Me.cmdOk.Location = New System.Drawing.Point(57, 171)
         Me.cmdOk.Name = "cmdOk"
         Me.cmdOk.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdOk.Size = New System.Drawing.Size(73, 25)
@@ -87,7 +94,7 @@ Friend Class dlgNewsArticle
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdCancel.Location = New System.Drawing.Point(136, 132)
+        Me.cmdCancel.Location = New System.Drawing.Point(136, 171)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdCancel.Size = New System.Drawing.Size(73, 25)
@@ -188,7 +195,7 @@ Friend Class dlgNewsArticle
         Me.cmdMiscOptions.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdMiscOptions.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdMiscOptions.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmdMiscOptions.Location = New System.Drawing.Point(19, 101)
+        Me.cmdMiscOptions.Location = New System.Drawing.Point(19, 140)
         Me.cmdMiscOptions.Name = "cmdMiscOptions"
         Me.cmdMiscOptions.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.cmdMiscOptions.Size = New System.Drawing.Size(249, 25)
@@ -196,11 +203,51 @@ Friend Class dlgNewsArticle
         Me.cmdMiscOptions.Text = "Misc Options"
         Me.cmdMiscOptions.UseVisualStyleBackColor = True
         '
+        'labelReqNewsArticlePath
+        '
+        Me.labelReqNewsArticlePath.BackColor = System.Drawing.Color.Gainsboro
+        Me.labelReqNewsArticlePath.Cursor = System.Windows.Forms.Cursors.Default
+        Me.labelReqNewsArticlePath.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelReqNewsArticlePath.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.labelReqNewsArticlePath.Location = New System.Drawing.Point(16, 101)
+        Me.labelReqNewsArticlePath.Name = "labelReqNewsArticlePath"
+        Me.labelReqNewsArticlePath.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.labelReqNewsArticlePath.Size = New System.Drawing.Size(89, 36)
+        Me.labelReqNewsArticlePath.TabIndex = 10
+        Me.labelReqNewsArticlePath.Text = "Path to Save binary/pdf"
+        '
+        'txtReqNewsArticlePath
+        '
+        Me.txtReqNewsArticlePath.AcceptsReturn = True
+        Me.txtReqNewsArticlePath.BackColor = System.Drawing.SystemColors.Window
+        Me.txtReqNewsArticlePath.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtReqNewsArticlePath.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtReqNewsArticlePath.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtReqNewsArticlePath.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtReqNewsArticlePath.Location = New System.Drawing.Point(117, 101)
+        Me.txtReqNewsArticlePath.MaxLength = 0
+        Me.txtReqNewsArticlePath.Name = "txtReqNewsArticlePath"
+        Me.txtReqNewsArticlePath.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.txtReqNewsArticlePath.Size = New System.Drawing.Size(116, 13)
+        Me.txtReqNewsArticlePath.TabIndex = 11
+        '
+        'cmdSelectFolderDialog
+        '
+        Me.cmdSelectFolderDialog.Location = New System.Drawing.Point(239, 98)
+        Me.cmdSelectFolderDialog.Name = "cmdSelectFolderDialog"
+        Me.cmdSelectFolderDialog.Size = New System.Drawing.Size(29, 20)
+        Me.cmdSelectFolderDialog.TabIndex = 12
+        Me.cmdSelectFolderDialog.Text = "..."
+        Me.cmdSelectFolderDialog.UseVisualStyleBackColor = True
+        '
         'dlgNewsArticle
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(280, 169)
+        Me.ClientSize = New System.Drawing.Size(280, 208)
+        Me.Controls.Add(Me.cmdSelectFolderDialog)
+        Me.Controls.Add(Me.txtReqNewsArticlePath)
+        Me.Controls.Add(Me.labelReqNewsArticlePath)
         Me.Controls.Add(Me.cmdMiscOptions)
         Me.Controls.Add(Me.cmdOk)
         Me.Controls.Add(Me.cmdCancel)
@@ -250,6 +297,7 @@ Friend Class dlgNewsArticle
     Private m_requestId As Integer
     Private m_providerCode As String
     Private m_articleId As String
+    Private m_path As String
     Private m_ok As Boolean = False
     Private m_options As List(Of IBApi.TagValue)
 
@@ -274,6 +322,12 @@ Friend Class dlgNewsArticle
         End Get
     End Property
 
+    Public ReadOnly Property path() As String
+        Get
+            path = m_path
+        End Get
+    End Property
+
     Public ReadOnly Property ok() As Boolean
         Get
             ok = m_ok
@@ -293,6 +347,7 @@ Friend Class dlgNewsArticle
         m_requestId = Text2Int(txtReqNewsArticleRequestId.Text)
         m_providerCode = txtReqNewsArticleProviderCode.Text
         m_articleId = txtReqNewsArticleArticleId.Text
+        m_path = txtReqNewsArticlePath.Text + "\" + articleId + ".pdf"
         m_ok = True
 
         Close()
@@ -328,6 +383,9 @@ Friend Class dlgNewsArticle
         txtReqNewsArticleRequestId.Enabled = True
         txtReqNewsArticleProviderCode.Enabled = True
         txtReqNewsArticleArticleId.Enabled = True
+        txtReqNewsArticlePath.Enabled = True
+        txtReqNewsArticlePath.Text = Directory.GetCurrentDirectory()
+
         m_options = options
 
     End Sub
@@ -340,5 +398,15 @@ Friend Class dlgNewsArticle
         If res = DialogResult.OK Then
             m_options = dlg.smartComboRoutingParams
         End If
+    End Sub
+
+    Private Sub cmdSelectFolderDialog_Click(sender As Object, e As EventArgs) Handles cmdSelectFolderDialog.Click
+        Dim dlg As New FolderBrowserDialog With {.SelectedPath = txtReqNewsArticlePath.Text}
+
+        If dlg.ShowDialog <> Windows.Forms.DialogResult.OK Then
+            Return
+        End If
+
+        txtReqNewsArticlePath.Text = dlg.SelectedPath
     End Sub
 End Class

@@ -16,6 +16,7 @@ using IBSampleApp.util;
 using IBSampleApp.types;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
 
 
 namespace IBSampleApp
@@ -138,6 +139,8 @@ namespace IBSampleApp
 
             DateTime startDateTime = DateTime.Now.AddDays(-4);
             textBoxHistoricalNewsStartDateTime.Text = startDateTime.ToString("yyyy-MM-dd HH:mm:ss.0");
+
+            textBoxNewsArticlePath.Text = Directory.GetCurrentDirectory();
 
             ibClient.Error += ibClient_Error;
             ibClient.ConnectionClosed += ibClient_ConnectionClosed;
@@ -1126,7 +1129,7 @@ namespace IBSampleApp
         private void buttonRequestNewsArticle_Click(object sender, EventArgs e)
         {
             ShowTab(tabControlNewsResults, tabPageNewsArticleResults);
-            newsManager.RequestNewsArticle(textBoxNewsArticleProviderCode.Text, textBoxNewsArticleArticleId.Text);
+            newsManager.RequestNewsArticle(textBoxNewsArticleProviderCode.Text, textBoxNewsArticleArticleId.Text, textBoxNewsArticlePath.Text);
         }
 
         private void linkLabelClearNewsArticle_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1367,6 +1370,16 @@ namespace IBSampleApp
             ibClient.ClientSocket.cancelTickByTickData(0);
             labelTickByTick.Text = "Tick-By-Tick: ";
             new[] { tickByTickLastTable, tickByTickAllLastTable, tickByTickBidAskTable, tickByTickMidPointTable }.ToList().ForEach(i => i.Clear());
+        }
+
+        private void buttonPdfPathDialog_Click(object sender, EventArgs e)
+        {
+            var fbd = new FolderBrowserDialog() { SelectedPath = textBoxNewsArticlePath.Text };
+
+            if (fbd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return;
+
+            textBoxNewsArticlePath.Text = fbd.SelectedPath;
         }
     }
 }

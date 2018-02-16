@@ -8,7 +8,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -1604,6 +1608,18 @@ class SampleFrame extends JFrame implements EWrapper {
 	public void newsArticle(int requestId, int articleType, String articleText) {
 		String msg = EWrapperMsgGenerator.newsArticle(requestId, articleType, articleText);
 		m_TWS.add(msg);
+		if (articleType == 1) {
+			String path = m_newsArticleDlg.m_retPath;
+			try {
+				byte[] bytes = Base64.getDecoder().decode(articleText);
+				FileOutputStream fos = new FileOutputStream(path);
+				fos.write(bytes);
+				fos.close();
+				m_TWS.add("Binary/pdf article was saved to " + path);
+			} catch (IOException ex) {
+				m_TWS.add("Binary/pdf article was not saved to " + path + " due to error: " + ex.getMessage());
+			}
+		}
 	}
 
 	@Override

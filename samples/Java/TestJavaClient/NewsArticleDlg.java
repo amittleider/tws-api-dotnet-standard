@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,11 +25,13 @@ public class NewsArticleDlg extends JDialog {
     private JTextField 	m_requestId = new JTextField("0");
     private JTextField 	m_providerCode = new JTextField();
     private JTextField 	m_articleId = new JTextField();
+    private JTextField 	m_path = new JTextField(System.getProperty("user.dir"));
     private List<TagValue> m_options = new ArrayList<>();
 
     int m_retRequestId;
     String m_retProviderCode;
     String m_retArticleId;
+    String m_retPath;
 
     NewsArticleDlg( JFrame owner) {
         super( owner, true);
@@ -52,6 +55,17 @@ public class NewsArticleDlg extends JDialog {
         midPanel.add( m_providerCode);
         midPanel.add( new JLabel( "Article Id") );
         midPanel.add( m_articleId);
+        midPanel.add( new JLabel( "Path to save binary/pdf") );
+        midPanel.add( m_path);
+        
+        JButton choosePathDialogButton = new JButton("...");
+        JFileChooser chooser =  new JFileChooser(m_path.getText());
+        
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        choosePathDialogButton.addActionListener(e -> m_path.setText(chooser.showOpenDialog(midPanel) == JFileChooser.APPROVE_OPTION ? chooser.getSelectedFile().getPath() : m_path.getText()));
+        
+        midPanel.add(choosePathDialogButton);
         
         // misc options button
         JButton btnOptions = new JButton("Misc Options");
@@ -89,6 +103,7 @@ public class NewsArticleDlg extends JDialog {
             m_retRequestId = Integer.parseInt( m_requestId.getText());
             m_retProviderCode = m_providerCode.getText().trim();
             m_retArticleId = m_articleId.getText().trim();
+            m_retPath = m_path.getText().trim() + "\\" + m_retArticleId + ".pdf";
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);

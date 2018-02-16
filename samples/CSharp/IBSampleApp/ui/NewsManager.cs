@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using IBApi;
 using IBSampleApp.messages;
 using IBSampleApp.util;
+using System.IO;
 
 namespace IBSampleApp.ui
 {
@@ -27,6 +28,7 @@ namespace IBSampleApp.ui
         private DataGridView newsProvidersGrid;
         private TextBox textBoxArticleText;
         private DataGridView historicalNewsGrid;
+        private string path;
 
         public NewsManager(IBClient ibClient, DataGridView tickNewsDataGrid, DataGridView newsProvidersGrid, TextBox textBoxArticleText, DataGridView historicalNewsGrid)
         {
@@ -95,12 +97,15 @@ namespace IBSampleApp.ui
             }
             else if (newsArticleMessage.ArticleType == 1)
             {
-                textBoxArticleText.Text = "News article text is binary/pdf and cannot be displayed.";
+                byte[] bytes = Convert.FromBase64String(newsArticleMessage.ArticleText);
+                File.WriteAllBytes(path, bytes);
+                textBoxArticleText.Text = "Binary/pdf article was saved to " + path;
             }
         }
 
-        public void RequestNewsArticle(string providerCode, string articleId)
+        public void RequestNewsArticle(string providerCode, string articleId, string path)
         {
+            Path = path + "\\" + articleId + ".pdf";
             textBoxArticleText.Clear();
             ibClient.ClientSocket.reqNewsArticle(NEWS_ARTICLE_ID, providerCode, articleId, new List<TagValue>());
         }
@@ -189,5 +194,12 @@ namespace IBSampleApp.ui
             get { return ibClient; }
             set { ibClient = value; }
         }
+
+        public string Path
+        {
+            get { return path; }
+            set { path = value; }
+        }
+
     }
 }

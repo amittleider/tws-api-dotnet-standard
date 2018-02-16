@@ -143,6 +143,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TestCppClient.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccountSummaryTags.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="ScannerSubscriptionSamples.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TestCppClient.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\source\cppclient\client\TwsSocketClient.vcxproj">

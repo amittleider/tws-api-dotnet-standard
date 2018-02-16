@@ -27,12 +27,14 @@
 #include "FAMethodSamples.h"
 #include "CommonDefs.h"
 #include "AccountSummaryTags.h"
+#include "Utils.h"
 
 #include <stdio.h>
 #include <chrono>
 #include <iostream>
 #include <thread>
 #include <ctime>
+#include <fstream>
 
 const int PING_DEADLINE = 2; // seconds
 const int SLEEP_BETWEEN_PINGS = 30; // seconds
@@ -1155,8 +1157,8 @@ void TestCppClient::reqNewsArticle()
 	/*** Request TWS' news article ***/
 	//! [reqNewsArticle]
 	TagValueList* list = new TagValueList();
-	list->push_back((TagValueSPtr)new TagValue("manual", "1"));
-	m_pClient->reqNewsArticle(12001, "BZ", "BZ$04507322", TagValueListSPtr(list));
+	// list->push_back((TagValueSPtr)new TagValue("manual", "1"));
+	m_pClient->reqNewsArticle(12001, "MST", "MST$06f53098", TagValueListSPtr(list));
 	//! [reqNewsArticle]
 
 	m_state = ST_REQNEWSARTICLE_ACK;
@@ -1319,7 +1321,7 @@ void TestCppClient::nextValidId( OrderId orderId)
     //m_state = ST_CONTFUT; 
     //m_state = ST_PNLSINGLE; 
     //m_state = ST_PNL; 
-	m_state = ST_DELAYEDTICKDATAOPERATION; 
+	//m_state = ST_DELAYEDTICKDATAOPERATION; 
 	//m_state = ST_MARKETDEPTHOPERATION;
 	//m_state = ST_REALTIMEBARS;
 	//m_state = ST_MARKETDATATYPE;
@@ -1345,7 +1347,7 @@ void TestCppClient::nextValidId( OrderId orderId)
 	//m_state = ST_REQNEWSTICKS;
 	//m_state = ST_REQSMARTCOMPONENTS;
 	//m_state = ST_NEWSPROVIDERS;
-	//m_state = ST_REQNEWSARTICLE;
+	m_state = ST_REQNEWSARTICLE;
 	//m_state = ST_REQHISTORICALNEWS;
 	//m_state = ST_REQHEADTIMESTAMP;
 	//m_state = ST_REQHISTOGRAMDATA;
@@ -1872,7 +1874,13 @@ void TestCppClient::newsArticle(int requestId, int articleType, const std::strin
 	if (articleType == 0) {
 		printf("News Article Text (text or html): %s\n", articleText.c_str());
 	} else if (articleType == 1) {
-		printf("News Article Text (binary/pdf): Binary/pdf article text cannot be displayed\n");
+		TCHAR s[200];
+		GetCurrentDirectory(200, s);
+		std::string path = s + std::string("\\MST$06f53098.pdf");
+		std::vector<BYTE> bytes = Utils::base64_decode(articleText);
+		std::ofstream outfile(path, std::ios::out | std::ios::binary); 
+		outfile.write((const char*)bytes.data(), bytes.size());
+		printf("Binary/pdf article was saved to: %s\n", path);
 	}
 }
 //! [newsArticle]
