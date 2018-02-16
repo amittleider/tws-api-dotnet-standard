@@ -10,8 +10,7 @@ class Utils {
 
 public:
     static inline bool Utils::is_base64(BYTE c);
-
- std::vector<BYTE> base64_decode(std::string const&);
+    static std::vector<BYTE> base64_decode(std::string const&);
 };
 
 #endif
