@@ -35,6 +35,7 @@
 #include <thread>
 #include <ctime>
 #include <fstream>
+#include <cstdint>
 
 const int PING_DEADLINE = 2; // seconds
 const int SLEEP_BETWEEN_PINGS = 30; // seconds
@@ -1419,7 +1420,7 @@ void TestCppClient::tickEFP(TickerId tickerId, TickType tickType, double basisPo
 void TestCppClient::orderStatus(OrderId orderId, const std::string& status, double filled,
 		double remaining, double avgFillPrice, int permId, int parentId,
 		double lastFillPrice, int clientId, const std::string& whyHeld, double mktCapPrice){
-	printf("OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s, MktCapPrice: %g, lastLiquidity: %d\n", orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str(), mktCapPrice);
+	printf("OrderStatus. Id: %ld, Status: %s, Filled: %g, Remaining: %g, AvgFillPrice: %g, PermId: %d, LastFillPrice: %g, ClientId: %d, WhyHeld: %s, MktCapPrice: %g\n", orderId, status.c_str(), filled, remaining, avgFillPrice, permId, lastFillPrice, clientId, whyHeld.c_str(), mktCapPrice);
 }
 //! [orderstatus]
 
@@ -1485,7 +1486,7 @@ void TestCppClient::bondContractDetails( int reqId, const ContractDetails& contr
 //! [bondcontractdetails]
 
 void TestCppClient::printContractMsg(const Contract& contract) {
-	printf("\tConId: %d\n", contract.conId);
+	printf("\tConId: %ld\n", contract.conId);
 	printf("\tSymbol: %s\n", contract.symbol.c_str());
 	printf("\tSecType: %s\n", contract.secType.c_str());
 	printf("\tLastTradeDateOrContractMonth: %s\n", contract.lastTradeDateOrContractMonth.c_str());
@@ -1502,7 +1503,7 @@ void TestCppClient::printContractMsg(const Contract& contract) {
 void TestCppClient::printContractDetailsMsg(const ContractDetails& contractDetails) {
 	printf("\tMarketName: %s\n", contractDetails.marketName.c_str());
 	printf("\tMinTick: %g\n", contractDetails.minTick);
-	printf("\tPriceMagnifier: %d\n", contractDetails.priceMagnifier);
+	printf("\tPriceMagnifier: %ld\n", contractDetails.priceMagnifier);
 	printf("\tOrderTypes: %s\n", contractDetails.orderTypes.c_str());
 	printf("\tValidExchanges: %s\n", contractDetails.validExchanges.c_str());
 	printf("\tUnderConId: %d\n", contractDetails.underConId);
@@ -1556,7 +1557,7 @@ void TestCppClient::printBondContractDetailsMsg(const ContractDetails& contractD
 	printf("\tCurrency: %s\n", contractDetails.contract.currency.c_str());
 	printf("\tMarketName: %s\n", contractDetails.marketName.c_str());
 	printf("\tTradingClass: %s\n", contractDetails.contract.tradingClass.c_str());
-	printf("\tConId: %d\n", contractDetails.contract.conId);
+	printf("\tConId: %ld\n", contractDetails.contract.conId);
 	printf("\tMinTick: %g\n", contractDetails.minTick);
 	printf("\tMdSizeMultiplier: %d\n", contractDetails.mdSizeMultiplier);
 	printf("\tOrderTypes: %s\n", contractDetails.orderTypes.c_str());
@@ -1627,7 +1628,7 @@ void TestCppClient::receiveFA(faDataType pFaDataType, const std::string& cxml) {
 
 //! [historicaldata]
 void TestCppClient::historicalData(TickerId reqId, Bar bar) {
-	printf( "HistoricalData. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g\n", reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);
+	printf( "HistoricalData. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %lld, Count: %d, WAP: %g\n", reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);
 }
 //! [historicaldata]
 
@@ -1874,13 +1875,23 @@ void TestCppClient::newsArticle(int requestId, int articleType, const std::strin
 	if (articleType == 0) {
 		printf("News Article Text (text or html): %s\n", articleText.c_str());
 	} else if (articleType == 1) {
-		TCHAR s[200];
-		GetCurrentDirectory(200, s);
-		std::string path = s + std::string("\\MST$06f53098.pdf");
-		std::vector<BYTE> bytes = Utils::base64_decode(articleText);
+		std::string path;
+		#if defined(IB_WIN32)
+			TCHAR s[200];
+			GetCurrentDirectory(200, s);
+			path = s + std::string("\\MST$06f53098.pdf");
+		#elif defined(IB_POSIX)
+			char s[1024];
+			if (getcwd(s, sizeof(s)) == NULL) {
+				printf("getcwd() error\n");
+				return;
+			}
+			path = s + std::string("/MST$06f53098.pdf");
+		#endif
+		std::vector<std::uint8_t> bytes = Utils::base64_decode(articleText);
 		std::ofstream outfile(path, std::ios::out | std::ios::binary); 
 		outfile.write((const char*)bytes.data(), bytes.size());
-		printf("Binary/pdf article was saved to: %s\n", path);
+		printf("Binary/pdf article was saved to: %s\n", path.c_str());
 	}
 }
 //! [newsArticle]
@@ -1916,7 +1927,7 @@ void TestCppClient::histogramData(int reqId, HistogramDataVector data) {
 
 //! [historicalDataUpdate]
 void TestCppClient::historicalDataUpdate(TickerId reqId, Bar bar) { 
-	printf( "HistoricalDataUpdate. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %d, Count: %d, WAP: %g\n", reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);
+	printf( "HistoricalDataUpdate. ReqId: %ld - Date: %s, Open: %g, High: %g, Low: %g, Close: %g, Volume: %lld, Count: %d, WAP: %g\n", reqId, bar.time.c_str(), bar.open, bar.high, bar.low, bar.close, bar.volume, bar.count, bar.wap);
 }
 //! [historicalDataUpdate]
 
@@ -1956,7 +1967,8 @@ void TestCppClient::pnlSingle(int reqId, int pos, double dailyPnL, double unreal
 //! [historicalticks]
 void TestCppClient::historicalTicks(int reqId, const std::vector<HistoricalTick>& ticks, bool done) {
     for (HistoricalTick tick : ticks) {
-        std::cout << "Historical tick. ReqId: " << reqId << ", time: " << ctime(&tick.time) << ", price: "<< tick.price << ", size: " << tick.size << std::endl;
+	std::time_t t = tick.time;
+        std::cout << "Historical tick. ReqId: " << reqId << ", time: " << ctime(&t) << ", price: "<< tick.price << ", size: " << tick.size << std::endl;
     }
 }
 //! [historicalticks]
@@ -1964,7 +1976,8 @@ void TestCppClient::historicalTicks(int reqId, const std::vector<HistoricalTick>
 //! [historicalticksbidask]
 void TestCppClient::historicalTicksBidAsk(int reqId, const std::vector<HistoricalTickBidAsk>& ticks, bool done) {
     for (HistoricalTickBidAsk tick : ticks) {
-        std::cout << "Historical tick bid/ask. ReqId: " << reqId << ", time: " << ctime(&tick.time) << ", mask: " << tick.mask << ", price bid: "<< tick.priceBid <<
+	std::time_t t = tick.time;
+        std::cout << "Historical tick bid/ask. ReqId: " << reqId << ", time: " << ctime(&t) << ", mask: " << tick.mask << ", price bid: "<< tick.priceBid <<
             ", price ask: "<< tick.priceAsk << ", size bid: " << tick.sizeBid << ", size ask: " << tick.sizeAsk << std::endl;
     }
 }
@@ -1973,7 +1986,8 @@ void TestCppClient::historicalTicksBidAsk(int reqId, const std::vector<Historica
 //! [historicaltickslast]
 void TestCppClient::historicalTicksLast(int reqId, const std::vector<HistoricalTickLast>& ticks, bool done) {
     for (HistoricalTickLast tick : ticks) {
-        std::cout << "Historical tick last. ReqId: " << reqId << ", time: " << ctime(&tick.time) << ", mask: " << tick.mask << ", price: "<< tick.price <<
+	std::time_t t = tick.time;
+        std::cout << "Historical tick last. ReqId: " << reqId << ", time: " << ctime(&t) << ", mask: " << tick.mask << ", price: "<< tick.price <<
             ", size: " << tick.size << ", exchange: " << tick.exchange << ", special conditions: " << tick.specialConditions << std::endl;
     }
 }
