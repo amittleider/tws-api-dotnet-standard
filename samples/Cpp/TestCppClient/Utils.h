@@ -5,12 +5,13 @@
 #define UTILS
 
 #include <vector>
+#include <cstdint>
 
 class Utils {
 
 public:
-    static inline bool Utils::is_base64(BYTE c);
-    static std::vector<BYTE> base64_decode(std::string const&);
+    static inline bool is_base64(std::uint8_t c);
+    static std::vector<std::uint8_t> base64_decode(std::string const&);
 };
 
 #endif
