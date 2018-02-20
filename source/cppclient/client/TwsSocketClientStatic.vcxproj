@@ -169,7 +169,6 @@
     <ClCompile Include="EReader.cpp" />
     <ClCompile Include="EClientSocket.cpp" />
     <ClCompile Include="EReaderOSSignal.cpp" />
-    <ClCompile Include="EReaderWMSignal.cpp" />
     <ClCompile Include="ESocket.cpp" />
     <ClCompile Include="executioncondition.cpp" />
     <ClCompile Include="MarginCondition.cpp" />
@@ -203,7 +202,6 @@
     <ClInclude Include="EClientSocket.h" />
     <ClInclude Include="EPosixClientSocketPlatform.h" />
     <ClInclude Include="EReaderOSSignal.h" />
-    <ClInclude Include="EReaderWMSignal.h" />
     <ClInclude Include="ESocket.h" />
     <ClInclude Include="ETransport.h" />
     <ClInclude Include="executioncondition.h" />
@@ -218,7 +216,6 @@
     <ClInclude Include="OrderCondition.h" />
     <ClInclude Include="PercentChangeCondition.h" />
     <ClInclude Include="PriceCondition.h" />
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="SoftDollarTier.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="CommissionReport.h" />

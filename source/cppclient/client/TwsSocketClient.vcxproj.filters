@@ -18,9 +18,6 @@
     <ClCompile Include="StdAfx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EReaderWMSignal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EReaderOSSignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,13 +93,7 @@
     <ClInclude Include="EPosixClientSocketPlatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StdAfx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EReaderWMSignal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EReaderOSSignal.h">

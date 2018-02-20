@@ -101,11 +101,8 @@ void TestCppClient::setConnectOptions(const std::string& connectOptions)
 	m_pClient->setConnectOptions(connectOptions);
 }
 
-void TestCppClient::processMessages() {
-	struct timeval tval;
-	tval.tv_usec = 0;
-	tval.tv_sec = 0;
-
+void TestCppClient::processMessages()
+{
 	time_t now = time(NULL);
 
 	/*****************************************************************/
@@ -317,11 +314,6 @@ void TestCppClient::processMessages() {
 				return;
 			}
 			break;
-	}
-
-	if( m_sleepDeadline > 0) {
-		// initialize timeout with m_sleepDeadline - now
-		tval.tv_sec = m_sleepDeadline - now;
 	}
 
 	m_pReader->checkClient();
