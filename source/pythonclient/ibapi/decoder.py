@@ -778,7 +778,7 @@ class Decoder(Object):
 
         if impliedVol < 0:    # -1 is the "not computed" indicator
             impliedVol = None
-        if delta > 1. or delta < -1.: # -2 is the "not computed" indicator
+        if delta == -2: # -2 is the "not computed" indicator
             delta = None
 
         if version >= 6 or \
@@ -788,9 +788,9 @@ class Decoder(Object):
             optPrice = decode(float, fields)
             pvDividend = decode(float, fields)
 
-            if optPrice < 0:    # -1 is the "not computed" indicator
+            if optPrice == -1:    # -1 is the "not computed" indicator
                 optPrice = None
-            if pvDividend < 0:  # -1 is the "not computed" indicator
+            if pvDividend == -1:  # -1 is the "not computed" indicator
                 pvDividend = None
 
         if version >= 6:
@@ -799,13 +799,13 @@ class Decoder(Object):
             theta = decode(float, fields)
             undPrice = decode(float, fields)
 
-            if gamma > 1 or gamma < -1:  # -2 is the "not yet computed" indicator
+            if gamma == -2:  # -2 is the "not yet computed" indicator
                 gamma = None
-            if vega > 1 or vega < -1:    # -2 is the "not yet computed" indicator
+            if vega == -2:    # -2 is the "not yet computed" indicator
                 vega = None
-            if theta > 1 or theta < -1:  # -2 is the "not yet computed" indicator
+            if theta == -2:  # -2 is the "not yet computed" indicator
                 theta = None
-            if undPrice < 0:             # -1 is the "not computed" indicator
+            if undPrice == -1:             # -1 is the "not computed" indicator
                 undPrice = None
 
         self.wrapper.tickOptionComputation(reqId, tickTypeInt, impliedVol,
