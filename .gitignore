@@ -27,4 +27,6 @@
 /bin/
 .idea
 __pycache__
-
+**/bin
+**/obj
+**/.vs
