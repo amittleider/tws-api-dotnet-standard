@@ -19,11 +19,5 @@ steps:
 
 - script: |
     dotnet restore
-    dotnet build --output $(Build.ArtifactStagingDirectory)
+    dotnet build 
   displayName: Build
-
-- script: |
-    dotnet pack --output $(Build.ArtifactStagingDirectory) -c Release /p:Version=1.0.$(Build.BuildId)
-    dotnet nuget push $(Build.ArtifactStagingDirectory)\InteractiveBrokers.TwsClient.1.0.$(Build.BuildId).nupkg --source https://www.nuget.org --api-key $(NugetApiKey)
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/strip_and_nugetize'))
-  displayName: Push nuget
