@@ -1,0 +1,23 @@
+resources:
+  repositories:
+  - repository: self
+    checkoutOptions:
+      submodules: true
+
+pool:
+  vmImage: windows-2019
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    version: '3.1.100'
+
+- script: |
+    dotnet restore
+    dotnet build 
+  displayName: Build
