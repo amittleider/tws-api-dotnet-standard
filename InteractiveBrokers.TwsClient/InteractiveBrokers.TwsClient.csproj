@@ -1,11 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1705;1591;1030;1570;0659;0162</NoWarn>
     <LangVersion>7.2</LangVersion>
+    <WarningsAsErrors />
+    <WarningLevel>0</WarningLevel>
+    <NoWarn />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>7.2</LangVersion>
@@ -13,6 +17,4 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  
-  <!--<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />-->
 </Project>
