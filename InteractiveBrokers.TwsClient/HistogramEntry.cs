@@ -3,8 +3,9 @@
 
 namespace IBApi
 {
-    public interface ETransport
+    public struct HistogramEntry
     {
-        void Send(EMessage msg);
+        public double Price { get; set; }
+        public long Size { get; set; }
     }
 }

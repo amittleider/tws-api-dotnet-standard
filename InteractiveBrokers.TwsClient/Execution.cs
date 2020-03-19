@@ -1,14 +1,47 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IBApi
 {
+
+    /**
+     * @class Liquidity
+     * @brief Class describing the liquidity type of an execution.
+     * @sa Execution
+     */
+    public class Liquidity
+    {
+        /**
+         * @brief The enum of available liquidity flag types. 
+         * 0 = Unknown, 1 = Added liquidity, 2 = Removed liquidity, 3 = Liquidity routed out
+         */
+
+        static readonly Dictionary<int, string> Values = new Dictionary<int, string> 
+        { 
+            {0, "None"}, 
+            {1, "Added Liquidity"}, 
+            {2, "Removed Liquidity"}, 
+            {3, "Liquidity Routed Out" }
+        };
+
+        public Liquidity(int p)
+        {
+            Value = Values.ContainsKey(p) ? p : 0;
+        }
+
+        /**
+         * @brief The value of the liquidity type.
+         */
+        public int Value { get; set; }
+
+        public override string ToString()
+        {
+            return Values[Value];
+        }
+    }
+
     /**
      * @class Execution
      * @brief Class describing an order's execution.
@@ -16,201 +49,122 @@ namespace IBApi
      */
     public class Execution
     {
-        private int orderId;
-        private int clientId;
-        private string execId;
-        private string time;
-        private string acctNumber;
-        private string exchange;
-        private string side;
-        private double shares;
-        private double price;
-        private int permId;
-        private int liquidation;
-        private int cumQty;
-        private double avgPrice;
-        private string orderRef;
-        private string evRule;
-        private double evMultiplier;
-        private string modelCode;
-
         /**
-         * @brief The API client's order Id.
+         * @brief The API client's order Id. May not be unique to an account.
          */
-        public int OrderId
-        {
-            get { return orderId; }
-            set { orderId = value; }
-        }
+        public int OrderId { get; set; }
 
         /**
          * @brief The API client identifier which placed the order which originated this execution.
          */
-        public int ClientId
-        {
-            get { return clientId; }
-            set { clientId = value; }
-        }
+        public int ClientId { get; set; }
 
         /**
-         * @brief The execution's identifier.
+         * @brief The execution's identifier. Each partial fill has a separate ExecId. 
+		 * A correction is indicated by an ExecId which differs from a previous ExecId in only the digits after the final period,
+		 * e.g. an ExecId ending in ".02" would be a correction of a previous execution with an ExecId ending in ".01"
          */
-        public string ExecId
-        {
-            get { return execId; }
-            set { execId = value; }
-        }
+        public string ExecId { get; set; }
 
         /**
          * @brief The execution's server time.
          */
-        public string Time
-        {
-            get { return time; }
-            set { time = value; }
-        }
+        public string Time { get; set; }
 
         /**
          * @brief The account to which the order was allocated.
          */
-        public string AcctNumber
-        {
-            get { return acctNumber; }
-            set { acctNumber = value; }
-        }
+        public string AcctNumber { get; set; }
 
         /**
          * @brief The exchange where the execution took place.
          */
-        public string Exchange
-        {
-            get { return exchange; }
-            set { exchange = value; }
-        }
+        public string Exchange { get; set; }
 
         /**
          * @brief Specifies if the transaction was buy or sale
          * BOT for bought, SLD for sold
          */
-        public string Side
-        {
-            get { return side; }
-            set { side = value; }
-        }
+        public string Side { get; set; }
 
         /**
          * @brief The number of shares filled.
          */
-        public double Shares
-        {
-            get { return shares; }
-            set { shares = value; }
-        }
+        public double Shares { get; set; }
 
         /**
          * @brief The order's execution price excluding commissions.
          */
-        public double Price
-        {
-            get { return price; }
-            set { price = value; }
-        }
+        public double Price { get; set; }
 
         /**
          * @brief The TWS order identifier. The PermId can be 0 for trades originating outside IB. 
          */
-        public int PermId
-        {
-            get { return permId; }
-            set { permId = value; }
-        }
+        public int PermId { get; set; }
 
         /**
          * @brief Identifies whether an execution occurred because of an IB-initiated liquidation. 
          */
-        public int Liquidation
-        {
-            get { return liquidation; }
-            set { liquidation = value; }
-        }
+        public int Liquidation { get; set; }
 
         /**
          * @brief Cumulative quantity. 
          * Used in regular trades, combo trades and legs of the combo.
          */
-        public int CumQty
-        {
-            get { return cumQty; }
-            set { cumQty = value; }
-        }
+        public double CumQty { get; set; }
 
         /**
          * @brief Average price. 
-         * Used in regular trades, combo trades and legs of the combo. Includes commissions.
+         * Used in regular trades, combo trades and legs of the combo. Does not include commissions.
          */
-        public double AvgPrice
-        {
-            get { return avgPrice; }
-            set { avgPrice = value; }
-        }
+        public double AvgPrice { get; set; }
 
         /**
-         * @brief Allows API client to add a reference to an order.
+         * @brief The OrderRef is a user-customizable string that can be set from the API or TWS and will be associated with an order for its lifetime.
          */
-        public string OrderRef
-        {
-            get { return orderRef; }
-            set { orderRef = value; }
-        }
+        public string OrderRef { get; set; }
 
         /**
          * @brief The Economic Value Rule name and the respective optional argument.
          * The two values should be separated by a colon. For example, aussieBond:YearsToExpiration=3. When the optional argument is not present, the first value will be followed by a colon.
          */
-        public string EvRule
-        {
-            get { return evRule; }
-            set { evRule = value; }
-        }
+        public string EvRule { get; set; }
 
         /**
          * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1.
          * It cannot be used to get market value by multiplying the price by the approximate multiplier.
          */
-        public double EvMultiplier
-        {
-            get { return evMultiplier; }
-            set { evMultiplier = value; }
-        }
+        public double EvMultiplier { get; set; }
 
         /**
          * @brief model code
          */
-        public string ModelCode
-        {
-            get { return modelCode; }
-            set { modelCode = value; }
-        }
+        public string ModelCode { get; set; }
 
+        /**
+         * @brief The liquidity type of the execution. Requires TWS 968+ and API v973.05+. Python API specifically requires API v973.06+.
+         */
+        public Liquidity LastLiquidity { get; set; }
 
         public Execution()
         {
-            orderId = 0;
-            clientId = 0;
-            shares = 0;
-            price = 0;
-            permId = 0;
-            liquidation = 0;
-            cumQty = 0;
-            avgPrice = 0;
-            evMultiplier = 0;
+            OrderId = 0;
+            ClientId = 0;
+            Shares = 0;
+            Price = 0;
+            PermId = 0;
+            Liquidation = 0;
+            CumQty = 0;
+            AvgPrice = 0;
+            EvMultiplier = 0;
+            LastLiquidity = new Liquidity(0);
         }
 
-        public Execution(int orderId, int clientId, String execId, String time,
-                          String acctNumber, String exchange, String side, double shares,
-                          double price, int permId, int liquidation, int cumQty,
-                          double avgPrice, String orderRef, String evRule, double evMultiplier,
-                          String modelCode)
+        public Execution(int orderId, int clientId, string execId, string time,
+                          string acctNumber, string exchange, string side, double shares,
+                          double price, int permId, int liquidation, double cumQty,
+                          double avgPrice, string orderRef, string evRule, double evMultiplier,
+                          string modelCode, Liquidity lastLiquidity)
         {
             OrderId = orderId;
             ClientId = clientId;
@@ -229,14 +183,16 @@ namespace IBApi
             EvRule = evRule;
             EvMultiplier = evMultiplier;
             ModelCode = modelCode;
+            LastLiquidity = lastLiquidity;
         }
 
-        public override bool Equals(Object p_other)
+        public override bool Equals(object p_other)
         {
             bool l_bRetVal = false;
+            Execution l_theOther = p_other as Execution;
 
-            if (p_other == null)
-            {
+            if (l_theOther == null)
+            { 
                 l_bRetVal = false;
             }
             else if (this == p_other)
@@ -245,10 +201,33 @@ namespace IBApi
             }
             else
             {
-                Execution l_theOther = (Execution)p_other;
-                l_bRetVal = String.Compare(ExecId, l_theOther.ExecId, true) == 0;
+                l_bRetVal = string.Compare(ExecId, l_theOther.ExecId, true) == 0;
             }
             return l_bRetVal;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 926796717;
+            hashCode = hashCode * -1521134295 + OrderId.GetHashCode();
+            hashCode = hashCode * -1521134295 + ClientId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ExecId);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Time);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AcctNumber);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Exchange);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Side);
+            hashCode = hashCode * -1521134295 + Shares.GetHashCode();
+            hashCode = hashCode * -1521134295 + Price.GetHashCode();
+            hashCode = hashCode * -1521134295 + PermId.GetHashCode();
+            hashCode = hashCode * -1521134295 + Liquidation.GetHashCode();
+            hashCode = hashCode * -1521134295 + CumQty.GetHashCode();
+            hashCode = hashCode * -1521134295 + AvgPrice.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(OrderRef);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EvRule);
+            hashCode = hashCode * -1521134295 + EvMultiplier.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ModelCode);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Liquidity>.Default.GetHashCode(LastLiquidity);
+            return hashCode;
         }
     }
 }

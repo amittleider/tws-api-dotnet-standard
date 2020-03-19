@@ -1,10 +1,5 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IBApi
 {
@@ -14,35 +9,35 @@ namespace IBApi
      */
     public class AccountSummaryTags
     {
-        public static readonly string AccountType = "AccountType";
-        public static readonly string NetLiquidation = "NetLiquidation";
-        public static readonly string TotalCashValue = "TotalCashValue";
-        public static readonly string SettledCash = "SettledCash";
-        public static readonly string AccruedCash = "AccruedCash";
-        public static readonly string BuyingPower = "BuyingPower";
-        public static readonly string EquityWithLoanValue = "EquityWithLoanValue";
-        public static readonly string PreviousEquityWithLoanValue = "PreviousEquityWithLoanValue";
-        public static readonly string GrossPositionValue = "GrossPositionValue";
-        public static readonly string ReqTEquity = "ReqTEquity";
-        public static readonly string ReqTMargin = "ReqTMargin";
-        public static readonly string SMA = "SMA";
-        public static readonly string InitMarginReq = "InitMarginReq";
-        public static readonly string MaintMarginReq = "MaintMarginReq";
-        public static readonly string AvailableFunds = "AvailableFunds";
-        public static readonly string ExcessLiquidity = "ExcessLiquidity";
-        public static readonly string Cushion = "Cushion";
-        public static readonly string FullInitMarginReq = "FullInitMarginReq";
-        public static readonly string FullMaintMarginReq = "FullMaintMarginReq";
-        public static readonly string FullAvailableFunds = "FullAvailableFunds";
-        public static readonly string FullExcessLiquidity = "FullExcessLiquidity";
-        public static readonly string LookAheadNextChange = "LookAheadNextChange";
-        public static readonly string LookAheadInitMarginReq = "LookAheadInitMarginReq";
-        public static readonly string LookAheadMaintMarginReq = "LookAheadMaintMarginReq";
-        public static readonly string LookAheadAvailableFunds = "LookAheadAvailableFunds";
-        public static readonly string LookAheadExcessLiquidity = "LookAheadExcessLiquidity";
-        public static readonly string HighestSeverity = "HighestSeverity";
-        public static readonly string DayTradesRemaining = "DayTradesRemaining";
-        public static readonly string Leverage = "Leverage";
+        public const string AccountType = "AccountType";
+        public const string NetLiquidation = "NetLiquidation";
+        public const string TotalCashValue = "TotalCashValue";
+        public const string SettledCash = "SettledCash";
+        public const string AccruedCash = "AccruedCash";
+        public const string BuyingPower = "BuyingPower";
+        public const string EquityWithLoanValue = "EquityWithLoanValue";
+        public const string PreviousEquityWithLoanValue = "PreviousEquityWithLoanValue";
+        public const string GrossPositionValue = "GrossPositionValue";
+        public const string ReqTEquity = "ReqTEquity";
+        public const string ReqTMargin = "ReqTMargin";
+        public const string SMA = "SMA";
+        public const string InitMarginReq = "InitMarginReq";
+        public const string MaintMarginReq = "MaintMarginReq";
+        public const string AvailableFunds = "AvailableFunds";
+        public const string ExcessLiquidity = "ExcessLiquidity";
+        public const string Cushion = "Cushion";
+        public const string FullInitMarginReq = "FullInitMarginReq";
+        public const string FullMaintMarginReq = "FullMaintMarginReq";
+        public const string FullAvailableFunds = "FullAvailableFunds";
+        public const string FullExcessLiquidity = "FullExcessLiquidity";
+        public const string LookAheadNextChange = "LookAheadNextChange";
+        public const string LookAheadInitMarginReq = "LookAheadInitMarginReq";
+        public const string LookAheadMaintMarginReq = "LookAheadMaintMarginReq";
+        public const string LookAheadAvailableFunds = "LookAheadAvailableFunds";
+        public const string LookAheadExcessLiquidity = "LookAheadExcessLiquidity";
+        public const string HighestSeverity = "HighestSeverity";
+        public const string DayTradesRemaining = "DayTradesRemaining";
+        public const string Leverage = "Leverage";
 
         public static string GetAllTags()
         {

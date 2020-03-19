@@ -1,10 +1,8 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IBApi
 {
@@ -30,45 +28,45 @@ namespace IBApi
         
         /**
          * @brief Errors sent by the TWS are received here.
-         * @param id the request identifier which generated the error.
+         * @param id the request identifier which generated the error. Note: -1 will indicate a notification and not true error condition.
          * @param errorCode the code identifying the error.
-         * @param errorMsg error's description.
+         * @param errorMsg error's description. Currently Latin-1 encoded error messages are supported. If logged into TWS in a different language it is recommended to enabled the setting in TWS Global Configuration -> API -> Settings -> Show API errors in English.  
          *  
          */
         void error(int id, int errorCode, string errorMsg);
 
         /**
-         * @brief Server's current time. This method will receive IB server's system time resulting after the invokation of reqCurrentTime
+         * @brief TWS's current time. TWS is synchronized with the server (not local computer) using NTP and this function will receive the current time in TWS.
          * @sa EClient::reqCurrentTime
          */
         void currentTime(long time);
 
         /**
          * @brief Market data tick price callback.
-         * Handles all price related ticks.
+         * Handles all price related ticks. Every tickPrice callback is followed by a tickSize. A tickPrice value of -1 or 0 followed by a tickSize of 0 indicates there is no data for this field currently available, whereas a tickPrice with a positive tickSize indicates an active quote of 0 (typically for a combo contract).
          * @param tickerId the request's unique identifier.
          * @param field the type of the price being received (i.e. ask price).
          * @param price the actual price.
-         * @param canAutoExecute Specifies whether the price tick is available for automatic execution (1) or not (0).
+         * @param attribs an TickAttrib object that contains price attributes such as TickAttrib::CanAutoExecute, TickAttrib::PastLimit and TickAttrib::PreOpen.
          * @sa TickType, tickSize, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
-        void tickPrice(int tickerId, int field, double price, int canAutoExecute);
+        void tickPrice(int tickerId, int field, double price, TickAttrib attribs);
 
         /**
          * @brief Market data tick size callback.
          * Handles all size-related ticks.
          * @param tickerId the request's unique identifier.
          * @param field the type of size being received (i.e. bid size)
-         * @param size the actual size.
+         * @param size the actual size. US stocks have a multiplier of 100.
          * @sa TickType, tickPrice, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickSize(int tickerId, int field, int size);
 
         /**
          * @brief Market data callback.
+		 * Every tickPrice is followed by a tickSize. There are also independent tickSize callbacks anytime the tickSize changes, and so there will be duplicate tickSize messages following a tickPrice.
          * @param tickerId the request's unique identifier.
          * @param field the type of the tick being received
-         * @param value
          * @sa TickType, tickSize, tickPrice, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
         void tickString(int tickerId, int field, string value);
@@ -98,12 +96,12 @@ namespace IBApi
         /**
          * @brief -
          * Upon accepting a Delta-Neutral DN RFQ(request for quote), the server sends a deltaNeutralValidation() message with the 
-         * UnderComp structure. If the delta and price fields are empty in the original request, the confirmation will contain the current
-         * values from the server. These values are locked when RFQ is processed and remain locked unitl the RFQ is cancelled.
+         * DeltaNeutralContract structure. If the delta and price fields are empty in the original request, the confirmation will contain the current
+         * values from the server. These values are locked when RFQ is processed and remain locked until the RFQ is cancelled.
          * @param reqId the request's identifier.
-         * @param underComp Underlying Component
+         * @param deltaNeutralContract Delta-Neutral Contract
          */
-        void deltaNeutralValidation(int reqId, UnderComp underComp);
+        void deltaNeutralValidation(int reqId, DeltaNeutralContract deltaNeutralContract);
 
         /**
          * @brief Receive's option specific market data.
@@ -126,26 +124,28 @@ namespace IBApi
         void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
 
         /**
-         * @brief When requesting market data snapshots, this market will indicate the snapshot reception is finished.
+         * @brief When requesting market data snapshots, this market will indicate the snapshot reception is finished. Expected to occur 11 seconds after beginning of request. 
          * 
          */
         void tickSnapshotEnd(int tickerId);
 
         /**
-         * @brief Receives next valid order id.
+         * @brief Receives next valid order id. Will be invoked automatically upon successfull API client connection, or after call to EClient::reqIds
+		 * Important: the next valid order ID is only valid at the time it is received.
          * @param orderId the next order id
          * @sa EClientSocket::reqIds
          */
         void nextValidId(int orderId);
 
         /**
-         * @brief Receives a comma-separated string with the managed account ids
+         * @brief Receives a comma-separated string with the managed account ids. Occurs automatically on initial API client connection.
          * @sa EClientSocket::reqManagedAccts
          */
         void managedAccounts(string accountsList);
 
         /**
-         * @brief Notifes when the API-TWS connectivity has been closed.
+         * @brief Callback to indicate the API connection has closed. 
+		 * Following a API <-> TWS broken socket connection, this function is not called automatically but must be triggered by API client code.
          * @sa EClientSocket::eDisconnect
          */
         void connectionClosed();
@@ -193,12 +193,13 @@ namespace IBApi
 
         /**
          * @brief notifies when all the accounts' information has ben received.
+		 * Requires TWS 967+ to receive accountSummaryEnd in linked account structures. 
          * @param reqId the request's identifier.
          * @sa accountSummary, EClientSocket::reqAccountSummary
          */
         void accountSummaryEnd(int reqId);
 
-        /*
+        /**
          * @brief Delivers the Bond contract data after this has been requested via reqContractDetails
          * @param reqId the request's identifier
          * @param contract the bond contract's information.
@@ -208,7 +209,8 @@ namespace IBApi
 
         /**
          * @brief Receives the subscribed account's information.
-         * Only one account can be subscribed at a time.
+         * Only one account can be subscribed at a time. 
+		 * After the initial callback to updateAccountValue, callbacks only occur for values which have changed. This occurs at the time of a position change, or every 3 minutes at most. This frequency cannot be adjusted.
          * @param key the value being updated.
          *      - AccountCode — The account ID number
          *      - AccountOrGroup — "All" to return account summary data for all accounts, or set to a specific Advisor Account Group name that has already been created in TWS Global Configuration
@@ -332,6 +334,7 @@ namespace IBApi
         /**
          * @brief Receives the subscribed account's portfolio.
          * This function will receive only the portfolio of the subscribed account. If the portfolios of all managed accounts are needed, refer to EClientSocket::reqPosition
+		 * After the initial callback to updatePortfolio, callbacks only occur for positions which have changed.
          * @param contract the Contract for which a position is held.
          * @param position the number of positions held.
          * @param marketPrice instrument's unitary price
@@ -339,7 +342,7 @@ namespace IBApi
          * @sa updateAccountTime, accountDownloadEnd, updateAccountValue, EClientSocket::reqAccountUpdates
          */
         void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
-            double averageCost, double unrealisedPNL, double realisedPNL, string accountName);
+            double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
 
         /**
          * @brief Receives the last time on which the account was updated.
@@ -356,29 +359,30 @@ namespace IBApi
         void accountDownloadEnd(string account);
 
         /**
-         * @brief Gives the up-to-date information of an order every time it changes.
+         * @brief Gives the up-to-date information of an order every time it changes. Often there are duplicate orderStatus messages.
          * @param orderId the order's client id.
-         * @param status the current status of the order:
-         *      PendingSubmit - indicates that you have transmitted the order, but have not yet received confirmation that it has been accepted by the order destination. NOTE: This order status is not sent by TWS and should be explicitly set by the API developer when an order is submitted.
-         *      PendingCancel - indicates that you have sent a request to cancel the order but have not yet received cancel confirmation from the order destination. At this point, your order is not confirmed canceled. You may still receive an execution while your cancellation request is pending. NOTE: This order status is not sent by TWS and should be explicitly set by the API developer when an order is canceled.
+         * @param status the current status of the order. Possible values:
+         *      PendingSubmit - indicates that you have transmitted the order, but have not yet received confirmation that it has been accepted by the order destination. 
+         *      PendingCancel - indicates that you have sent a request to cancel the order but have not yet received cancel confirmation from the order destination. At this point, your order is not confirmed canceled. It is not guaranteed that the cancellation will be successful. 
          *      PreSubmitted - indicates that a simulated order type has been accepted by the IB system and that this order has yet to be elected. The order is held in the IB system until the election criteria are met. At that time the order is transmitted to the order destination as specified .
-         *      Submitted - indicates that your order has been accepted at the order destination and is working.
-         *      ApiCanceled - after an order has been submitted and before it has been acknowledged, an API client client can request its cancelation, producing this state.
+         *      Submitted - indicates that your order has been accepted by the system.
+         *      ApiCancelled - after an order has been submitted and before it has been acknowledged, an API client client can request its cancelation, producing this state.
          *      Cancelled - indicates that the balance of your order has been confirmed canceled by the IB system. This could occur unexpectedly when IB or the destination has rejected your order.
-         *      Filled - indicates that the order has been completely filled.
-         *      Inactive - indicates that the order has been accepted by the system (simulated orders) or an exchange (native orders) but that currently the order is inactive due to system, exchange or other issues.
+         *      Filled - indicates that the order has been completely filled. Market orders executions will not always trigger a Filled status.
+         *      Inactive - indicates that the order was received by the system but is no longer active because it was rejected or canceled.
          * @param filled number of filled positions.
          * @param remaining the remnant positions.
          * @param avgFillPrice average filling price.
-         * @param permId the order's permId used by the TWs to identify orders.
-         * @param parentId parent's id. Used for bracker and auto trailing stop orders.
+         * @param permId the order's permId used by the TWS to identify orders.
+         * @param parentId parent's id. Used for bracket and auto trailing stop orders.
          * @param lastFillPrice price at which the last positions were filled.
          * @param clientId API client which submitted the order.
          * @param whyHeld this field is used to identify an order held when TWS is trying to locate shares for a short sell. The value used to indicate this is 'locate'.
+		 * @param mktCapPrice If an order has been capped, this indicates the current capped price. Requires TWS 967+ and API v973.04+. Python API specifically requires API v973.06+.
          * @sa openOrder, openOrderEnd, EClientSocket::placeOrder, EClientSocket::reqAllOpenOrders, EClientSocket::reqAutoOpenOrders
          */
-        void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, 
-            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
+        void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice,
+            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice);
 
         /**
          * @brief Feeds in currently open orders.
@@ -397,7 +401,7 @@ namespace IBApi
         void openOrderEnd();
 
         /**
-         * @brief receives the full contract's definitons
+         * @brief receives the full contract's definitions
          * This method will return all contracts matching the requested via EClientSocket::reqContractDetails. For example, one can obtain the whole option chain with it.
          * @param reqId the unique request identifier
          * @param contractDetails the instrument's complete definition.        
@@ -435,9 +439,9 @@ namespace IBApi
         void commissionReport(CommissionReport commissionReport);
 
         /**
-         * @brief returns Reuters' Fundamental data
+         * @brief returns fundamental data
          * @param reqId the request's identifier
-         * @param data Reuthers xml-formatted fundamental data
+         * @param data xml-formatted fundamental data
          * @sa EClientSocket::reqFundamentalData
          */
         void fundamentalData(int reqId, string data);
@@ -445,30 +449,30 @@ namespace IBApi
         /**
          * @brief returns the requested historical data bars
          * @param reqId the request's identifier
-         * @param date the bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request)
-         * @param open the bar's open point
-         * @param high the bar's high point
-         * @param low the bar's low point
-         * @param close the bar's closing point
-         * @param volume the bar's traded volume if available
-         * @param count the number of trades during the bar's timespan (only available for TRADES).
-         * @param WAP the bar's Weighted Average Price
-         * @param hasGaps indicates if the data has gaps or not.
+         * @param bar the OHLC historical data Bar. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. 
          * @sa EClientSocket::reqHistoricalData
          */
-        void historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps);
+        void historicalData(int reqId, Bar bar);
+        
+		/**
+         * @brief Receives bars in real time if keepUpToDate is set as True in reqHistoricalData. Similar to realTimeBars function, except returned data is a composite of historical data and real time data that is equivalent to TWS chart functionality to keep charts up to date. Returned bars are successfully updated using real time data.
+		 * @param reqId the requests identifier
+		 * @param bar the OHLC historical data Bar. The time zone of the bar is the time zone chosen on the TWS login screen. Smallest bar size is 1 second. 
+         */
+        void historicalDataUpdate(int reqId, Bar bar);
 
         /**
          * @brief Marks the ending of the historical bars reception.
          */
-       void historicalDataEnd(int reqId, string start, string end);
+        void historicalDataEnd(int reqId, string start, string end);
 
-       /**
-        * @brief Returns the current market data type (real time streamed, frozen, delayed, delayed-frozen)
-        * @param reqId the request's identifier
-        * @param marketDataType 1 for real time, 2 for frozen, 3 for delayed, 4 for delayed-frozen
-        * @sa EClientSocket::reqMarketDataType
-        */
+        /**
+         * @brief Returns the market data type (real-time, frozen, delayed, delayed-frozen) of ticker sent by EClientSocket::reqMktData 
+         * when TWS switches from real-time to frozen and back and from delayed to delayed-frozen and back
+         * @param reqId the id of ticker sent in reqMktData
+         * @param marketDataType means that now API starts to tick with the following market data: 1 for real-time, 2 for frozen, 3 for delayed, 4 for delayed-frozen
+         * @sa EClientSocket::reqMarketDataType, EClientSocket::reqMktData
+         */
         void marketDataType(int reqId, int marketDataType);
 
         /**
@@ -490,7 +494,7 @@ namespace IBApi
          * @brief Returns the order book
          * @param tickerId the request's identifier
          * @param position the order book's row being updated
-         * @param marketMaker the exchange holding the order
+         * @param marketMaker the exchange holding the order if isSmartDepth is True, otherwise the MPID of the market maker
          * @param operation how to refresh the row:
          *      0 - insert (insert this new order into the row identified by 'position')·
          *      1 - update (update the existing order in the row identified by 'position')·
@@ -498,9 +502,10 @@ namespace IBApi
          * @param side 0 for ask, 1 for bid
          * @param price the order's price
          * @param size the order's size
+         * @param isSmartDepth flag indicating if this is smart depth response (aggregate data from multiple exchanges, v974+)
          * @sa updateMktDepth, EClientSocket::reqMarketDepth
          */
-        void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size);
+        void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size, bool isSmartDepth);
 
         /**
          * @brief provides IB's bulletins
@@ -512,7 +517,7 @@ namespace IBApi
          * @param message the message
          * @param origExchange the exchange where the message comes from.
          */
-        void updateNewsBulletin(int msgId, int msgType, String message, String origExchange);
+        void updateNewsBulletin(int msgId, int msgType, string message, string origExchange);
 
         /**
          * @brief provides the portfolio's open positions.
@@ -533,20 +538,20 @@ namespace IBApi
         /**
          * @brief updates the real time 5 seconds bars
          * @param reqId the request's identifier
-         * @param date the bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request)
+         * @param date the bar's date and time (Epoch/Unix time)
          * @param open the bar's open point
          * @param high the bar's high point
          * @param low the bar's low point
          * @param close the bar's closing point
-         * @param volume the bar's traded volume if available
-         * @param WAP the bar's Weighted Average Price
+         * @param volume the bar's traded volume (only returned for TRADES data)
+         * @param WAP the bar's Weighted Average Price rounded to minimum increment (only available for TRADES).
          * @param count the number of trades during the bar's timespan (only available for TRADES).
          * @sa EClientSocket::reqRealTimeBars
          */
-        void realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double WAP, int count);
+        void realtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double WAP, int count);
 
         /**
-         * @brief provides the xml-formatted parameters available to create a market scanner.
+         * @brief provides the xml-formatted parameters available from TWS market scanners (not all available in API).
          * @param xml the xml-formatted string with the available parameters.
          * @sa scannerData, EClientSocket::reqScannerParameters
          */
@@ -584,22 +589,22 @@ namespace IBApi
         void receiveFA(int faDataType, string faXmlData);
 
         /**
-        * @brief Deprecated Function.
+        * @brief Not generally available.
         */
         void verifyMessageAPI(string apiData);
 
         /**
-        * @brief DOC_TODO
+        * @brief Not generally available.
         */
         void verifyCompleted(bool isSuccessful, string errorText);
 
         /**
-        * @brief DOC_TODO
+        * @brief Not generally available.
         */
         void verifyAndAuthMessageAPI(string apiData, string xyzChallenge);
 
         /**
-        * @brief DOC_TODO
+        * @brief Not generally available.
         */
         void verifyAndAuthCompleted(bool isSuccessful, string errorText);
 
@@ -620,7 +625,8 @@ namespace IBApi
         void displayGroupUpdated(int reqId, string contractInfo);
 
         /**
-        * @brief callback signifying completion of successful connection
+        * @brief callback initially acknowledging connection attempt
+		* connection handshake not complete until nextValidID is received
         */
         void connectAck();
 
@@ -631,7 +637,7 @@ namespace IBApi
          * @param modelCode the model code holding the position.
          * @param contract the position's Contract
          * @param pos the number of positions held.
-         * @Param avgCost the average cost of the position.
+         * @param avgCost the average cost of the position.
          * @sa positionMultiEnd, EClientSocket::reqPositionsMulti
          */
         void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost);
@@ -680,6 +686,243 @@ namespace IBApi
 		*/
         void securityDefinitionOptionParameterEnd(int reqId);
 
+        /**
+        * @brief called when receives Soft Dollar Tier configuration information
+        * @param reqId The request ID used in the call to EClient::reqSoftDollarTiers
+        * @param tiers Stores a list of SoftDollarTier that contains all Soft Dollar Tiers information
+        * @sa EClient::reqSoftDollarTiers
+        */
         void softDollarTiers(int reqId, SoftDollarTier[] tiers);
+
+        /**
+        * @brief returns array of family codes
+        * @param FamilyCode[]
+        * @sa EClient::reqFamilyCodes
+        */
+        void familyCodes(FamilyCode[] familyCodes);
+
+        /**
+        * @brief returns array of sample contract descriptions
+        * @param ContractDescription[]
+        * @sa EClient::reqMatchingSymbols
+        */
+        void symbolSamples(int reqId, ContractDescription[] contractDescriptions);
+
+        /**
+        * @brief called when receives Depth Market Data Descriptions
+        * @param descriptions Stores a list of DepthMktDataDescriprion
+        * @sa EClient::reqMktDepthExchanges
+        */
+        void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions);
+
+        /**
+        * @brief ticks with news headline
+        * @param tickerId
+        * @param timeStamp
+        * @param providerCode
+        * @param articleId
+        * @param headline
+        * @param extraData
+        * @sa EClient::reqMktData
+        */
+        void tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData);
+
+        /**
+        * @brief bit number to exchange + exchange abbreviation dictionary
+        * @param reqId
+        * @param theMap
+        * sa EClient::reqSmartComponents
+        */
+        void smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap);
+
+        /**
+        * @brief tick with BOO exchange and snapshot permissions
+        * @param tickerId
+        * @param minTick
+        * @param bboExchange
+        * @param snapshotPermissions
+        * sa EClient::reqMktData
+        */
+        void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
+
+        /**
+        * @brief returns array of subscribed API news providers for this user
+        * @param NewsProvider[]
+        * @sa EClient::reqNewsProviders
+        */
+        void newsProviders(NewsProvider[] newsProviders);
+
+        /**
+        * @brief called when receives News Article
+        * @param requestId The request ID used in the call to EClient::reqNewsArticle
+        * @param articleType The type of news article (0 - plain text or html, 1 - binary data / pdf)
+        * @param articleText The body of article (if articleType == 1, the binary data is encoded using the Base64 scheme)
+        * @sa EClient::reqNewsArticle
+        */
+        void newsArticle(int requestId, int articleType, string articleText);
+
+        /**
+        * @brief returns news headline
+        * @param requestId
+        * @param time
+        * @param providerCode
+        * @param articleId
+        * @param headline
+        * @sa EClient::reqHistoricalNews
+        */
+        void historicalNews(int requestId, string time, string providerCode, string articleId, string headline);
+
+        /**
+        * @brief returns news headlines end marker
+        * @param requestId
+        * @param hasMore - indicates whether there are more results available, false otherwise
+        * @sa EClient::reqHistoricalNews
+        */
+        void historicalNewsEnd(int requestId, bool hasMore);
+
+		/**
+        * @brief - returns beginning of data for contract for specified data type
+        * @param requestId 
+        * @param headTimestamp - string identifying earliest data date
+        * @sa EClient::reqHeadTimestamp
+        */
+        void headTimestamp(int reqId, string headTimestamp);
+
+		/**
+        * @brief returns data histogram
+        * @param requestId
+        * @param data - returned Tuple of histogram data, number of trades at specified price level
+        * @sa EClient::reqHistogramData
+        */
+        void histogramData(int reqId, HistogramEntry[] data);
+
+        /**
+        * @brief - returns conId and exchange for CFD market data request re-route
+        * @param reqId 
+        * @param conId of the underlying instrument which has market data
+        * @param exchange of the underlying
+        */
+        void rerouteMktDataReq(int reqId, int conId, string exchange);
+
+        /**
+        * @brief returns the conId and exchange for an underlying contract when a request is made for level 2 data for an instrument which does not have data in IB's database. For example stock CFDs and index CFDs.  
+        * @param reqId 
+        * @param conId
+        * @param exchange
+        */
+        void rerouteMktDepthReq(int reqId, int conId, string exchange);
+
+        /**
+        * @brief returns minimum price increment structure for a particular market rule ID
+		* market rule IDs for an instrument on valid exchanges can be obtained from the contractDetails object for that contract
+        * @param marketRuleId
+        * @param PriceIncrement[]
+        * @sa EClient::reqMarketRule
+        */
+        void marketRule(int marketRuleId, PriceIncrement[] priceIncrements);
+		
+		/**
+		* @brief receives PnL updates in real time for the daily PnL and the total unrealized PnL for an account 
+		* @param reqId
+		* @param dailyPnL dailyPnL updates for the account in real time
+		* @param unrealizedPnL total unRealized PnL updates for the account in real time
+        * @sa EClient::reqPnL
+		*/
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
+		
+		/** 
+		* @brief receives real time updates for single position daily PnL values
+		* @param reqId
+		* @param pos current size of the position
+		* @param dailyPnL dailyPnL for the position
+		* @param unrealizedPnL total unrealized PnL for the position (since inception) updating in real time
+		* @param value current market value of the position
+		* @sa EClient::reqSinglePnL
+		*/
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
+			
+		/**
+		* @brief
+		* @param reqId
+		* @param ticks list of HistoricalTick data
+		* @param done flag to indicate if all historical tick data has been received
+		*/
+        void historicalTicks(int reqId, HistoricalTick[] ticks, bool done);
+		
+		/**
+		* @brief
+		* @param reqId
+		* @param ticks list of HistoricalBidAsk data
+		* @param done flag to indicate if all historical tick data has been received
+		*/
+        void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done);
+		
+		/**
+		* @brief
+		* @param reqId
+		* @param ticks list of HistoricalTickLast data
+		* @param done flag to indicate if all historical tick data has been received
+		*/
+        void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done);
+
+        /**
+        * @brief returns "Last" or "AllLast" tick-by-tick real-time tick
+        * @param reqId - unique identifier of the request
+        * @param tickType - tick-by-tick real-time tick type: "Last" or "AllLast"
+        * @param time - tick-by-tick real-time tick timestamp
+        * @param price - tick-by-tick real-time tick last price
+        * @param size - tick-by-tick real-time tick last size
+        * @param tickAttribLast - tick-by-tick real-time last tick attribs (bit 0 - past limit, bit 1 - unreported)
+        * @param exchange - tick-by-tick real-time tick exchange
+        * @param specialConditions - tick-by-tick real-time tick special conditions
+        * @sa EClient::reqTickByTickData
+        */
+        void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions);
+
+        /**
+        * @brief returns "BidAsk" tick-by-tick real-time tick
+        * @param reqId - unique identifier of the request
+        * @param time - tick-by-tick real-time tick timestamp
+        * @param bidPrice - tick-by-tick real-time tick bid price
+        * @param askPrice - tick-by-tick real-time tick ask price
+        * @param bidSize - tick-by-tick real-time tick bid size
+        * @param askSize - tick-by-tick real-time tick ask size
+        * @param tickAttribBidAsk - tick-by-tick real-time bid/ask tick attribs (bit 0 - bid past low, bit 1 - ask past high)
+        * @sa EClient::reqTickByTickData
+        */
+        void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk);
+
+        /**
+        * @brief returns "MidPoint" tick-by-tick real-time tick
+        * @param reqId - unique identifier of the request
+        * @param time - tick-by-tick real-time tick timestamp
+        * @param midPoint - tick-by-tick real-time tick mid point
+        * @sa EClient::reqTickByTickData
+        */
+        void tickByTickMidPoint(int reqId, long time, double midPoint);
+
+        /**
+        * @brief response to API bind order control message
+        * @param orderId - permId
+        * @param apiClientId - API client id
+        * @param apiOrderId - API order id
+        * @sa EClient::reqOpenOrders
+        */
+        void orderBound(long orderId, int apiClientId, int apiOrderId);
+
+        /**
+         * @brief Feeds in completed orders.
+         * @param contract the order's Contract.
+         * @param order the completed Order.
+         * @param orderState the order's OrderState
+         * @sa completedOrdersEnd, EClientSocket::reqCompletedOrders
+         */
+        void completedOrder(Contract contract, Order order, OrderState orderState);
+
+        /**
+         * @brief Notifies the end of the completed orders' reception.
+         * @sa completedOrder, EClientSocket::reqCompletedOrders
+         */
+        void completedOrdersEnd();
     }
 }

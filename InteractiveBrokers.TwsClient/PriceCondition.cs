@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace IBApi
 {
@@ -51,6 +52,22 @@ namespace IBApi
             return TriggerMethod.ToFriendlyString() + " " + base.ToString();
         }
 
+        public override bool Equals(object obj)
+        {
+            var other = obj as PriceCondition;
+
+            if (other == null)
+                return false;
+
+            return base.Equals(obj)
+                && TriggerMethod == other.TriggerMethod;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() + TriggerMethod.GetHashCode();
+        }
+
         public double Price { get; set; }
         public TriggerMethod TriggerMethod { get; set; }
 
@@ -85,8 +102,6 @@ namespace IBApi
             {
                 return false;
             }
-
-            return true;
         }
     }
 }
