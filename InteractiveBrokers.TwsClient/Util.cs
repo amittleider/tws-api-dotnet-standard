@@ -1,9 +1,8 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace IBApi
@@ -12,7 +11,7 @@ namespace IBApi
     {
         public static bool StringIsEmpty(string str)
         {
-            return str == null || str.Length == 0;
+            return string.IsNullOrEmpty(str);
         }
 
 
@@ -30,7 +29,7 @@ namespace IBApi
         {
             string normalisedLhs = NormalizeString(lhs);
             string normalisedRhs = NormalizeString(rhs);
-            return String.Compare(normalisedLhs, normalisedRhs, true); 
+            return string.Compare(normalisedLhs, normalisedRhs, true); 
         }
 
         public static bool VectorEqualsUnordered<T>(List<T> lhs, List<T> rhs)
@@ -52,7 +51,7 @@ namespace IBApi
 
             for (int lhsIdx = 0; lhsIdx < lhsCount; ++lhsIdx)
             {
-                Object lhsElem = lhs[lhsIdx];
+                object lhsElem = lhs[lhsIdx];
                 int rhsIdx = 0;
                 for (; rhsIdx < rhsCount; ++rhsIdx)
                 {
@@ -78,13 +77,41 @@ namespace IBApi
 
         public static string IntMaxString(int value)
         {
-            return (value == Int32.MaxValue) ? "" : "" + value;
+            return (value == int.MaxValue) ? "" : "" + value;
+        }
+
+        public static string LongMaxString(long value)
+        {
+            return (value == long.MaxValue) ? "" : "" + value;
         }
 
         public static string DoubleMaxString(double value)
         {
-            return (value == Double.MaxValue) ? "" : "" + value;
+            return (value == double.MaxValue) ? "" : "" + value;
         }
 
+        public static string UnixSecondsToString(long seconds, string format)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(seconds)).ToString(format);
+        }
+
+        public static string formatDoubleString(string str)
+        {
+            return string.IsNullOrEmpty(str) ? "" : string.Format("{0,0:N2}", double.Parse(str));
+        }
+
+        public static string TagValueListToString(List<TagValue> options)
+        {
+            StringBuilder tagValuesStr = new StringBuilder();
+            int tagValuesCount = options == null ? 0 : options.Count;
+
+            for (int i = 0; i < tagValuesCount; i++)
+            {
+                TagValue tagValue = options[i];
+                tagValuesStr.Append(tagValue.Tag).Append("=").Append(tagValue.Value).Append(";");
+            }
+
+            return tagValuesStr.ToString();
+        }
     }
 }

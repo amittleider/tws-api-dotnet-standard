@@ -1,10 +1,5 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IBApi
 {
@@ -63,5 +58,30 @@ namespace IBApi
         public const int SecurityDefinitionOptionParameter = 75;
         public const int SecurityDefinitionOptionParameterEnd = 76;
         public const int SoftDollarTier = 77;
+        public const int FamilyCodes = 78;
+        public const int SymbolSamples = 79;
+        public const int MktDepthExchanges = 80;
+        public const int TickReqParams = 81;
+        public const int SmartComponents = 82;
+        public const int NewsArticle = 83;
+        public const int TickNews = 84;
+        public const int NewsProviders = 85;
+        public const int HistoricalNews = 86;
+        public const int HistoricalNewsEnd = 87;
+        public const int HeadTimestamp = 88;
+        public const int HistogramData = 89;
+        public const int HistoricalDataUpdate = 90;
+        public const int RerouteMktDataReq = 91;
+        public const int RerouteMktDepthReq = 92;
+        public const int MarketRule = 93;
+        public const int PnL = 94;
+        public const int PnLSingle = 95;
+        public const int HistoricalTick = 96;
+        public const int HistoricalTickBidAsk = 97;
+        public const int HistoricalTickLast = 98;
+        public const int TickByTick = 99;
+        public const int OrderBound = 100;
+        public const int CompletedOrder = 101;
+        public const int CompletedOrdersEnd = 102;
     }
 }

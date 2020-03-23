@@ -1,10 +1,5 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IBApi
 {
@@ -93,8 +88,28 @@ namespace IBApi
         public const int RT_TRD_VOLUME = 77;
         public const int CREDITMAN_MARK_PRICE = 78;
         public const int CREDITMAN_SLOW_MARK_PRICE = 79;
+        public const int DELAYED_BID_OPTION = 80;
+        public const int DELAYED_ASK_OPTION = 81;
+        public const int DELAYED_LAST_OPTION = 82;
+        public const int DELAYED_MODEL_OPTION = 83;
+        public const int LAST_EXCH = 84;
+        public const int LAST_REG_TIME = 85;
+        public const int FUTURES_OPEN_INTEREST = 86;
+        public const int AVG_OPT_VOLUME = 87;
+        public const int DELAYED_LAST_TIMESTAMP = 88;
+        public const int SHORTABLE_SHARES = 89;
+        public const int DELAYED_HALTED = 90;
+        public const int REUTERS_2_MUTUAL_FUNDS = 91;
+        public const int ETF_NAV_CLOSE = 92;
+        public const int ETF_NAV_PRIOR_CLOSE = 93;
+        public const int ETF_NAV_BID = 94;
+        public const int ETF_NAV_ASK = 95;
+        public const int ETF_NAV_LAST = 96;
+        public const int ETF_FROZEN_NAV_LAST = 97;
+        public const int ETF_NAV_HIGH = 98;
+        public const int ETF_NAV_LOW = 99;
 
-        public static String getField( int tickType) {
+        public static string getField( int tickType) {
             switch( tickType) {
                 case BID_SIZE:                    return "bidSize";
                 case BID:                         return "bidPrice";
@@ -173,10 +188,29 @@ namespace IBApi
                 case DELAYED_VOLUME:              return "delayedVolume";
                 case DELAYED_CLOSE:               return "delayedClose";
                 case DELAYED_OPEN:                return "delayedOpen";
-                case RT_TRD_VOLUME: return "rtTrdVolume";
-                case CREDITMAN_MARK_PRICE: return "creditmanMarkPrice";
-                case CREDITMAN_SLOW_MARK_PRICE: return "creditmanSlowMarkPrice";
-
+                case RT_TRD_VOLUME:               return "rtTrdVolume";
+                case CREDITMAN_MARK_PRICE:        return "creditmanMarkPrice";
+                case CREDITMAN_SLOW_MARK_PRICE:   return "creditmanSlowMarkPrice";
+                case DELAYED_BID_OPTION:          return "delayedBidOptComp";
+                case DELAYED_ASK_OPTION:          return "delayedAskOptComp";
+                case DELAYED_LAST_OPTION:         return "delayedLastOptComp";
+                case DELAYED_MODEL_OPTION:        return "delayedModelOptComp";
+                case LAST_EXCH:                   return "lastExchange";
+                case LAST_REG_TIME:               return "lastRegTime";
+                case FUTURES_OPEN_INTEREST:       return "futuresOpenInterest";
+                case AVG_OPT_VOLUME:              return "avgOptVolume";
+                case DELAYED_LAST_TIMESTAMP:      return "delayedLastTimestamp";
+                case SHORTABLE_SHARES:            return "shortableShares";
+                case DELAYED_HALTED:              return "delayedHalted";
+                case REUTERS_2_MUTUAL_FUNDS:      return "reuters2MutualFunds";
+                case ETF_NAV_CLOSE:               return "etfNavClose";
+                case ETF_NAV_PRIOR_CLOSE:         return "etfNavPriorClose";
+                case ETF_NAV_BID:                 return "etfNavBid";
+                case ETF_NAV_ASK:                 return "etfNavAsk";
+                case ETF_NAV_LAST:                return "etfNavLast";
+                case ETF_FROZEN_NAV_LAST:         return "etfFrozenNavLast";
+                case ETF_NAV_HIGH:                return "etfNavHigh";
+                case ETF_NAV_LOW:                 return "etfNavLow";
                 default:                          return "unknown";
             }
         }

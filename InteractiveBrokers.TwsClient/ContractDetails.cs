@@ -1,11 +1,7 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IBApi
 {
@@ -16,49 +12,17 @@ namespace IBApi
      */
     public class ContractDetails
     {
-        private Contract summary;
-        private string marketName;
-        private double minTick;
-        private int priceMagnifier;
-        private string orderTypes;
-        private string validExchanges;
-        private int underConId;
-        private string longName;
-        private string contractMonth;
-        private string industry;
-        private string category;
-        private string subcategory;
-        private string timeZoneId;
-        private string tradingHours;
-        private string liquidHours;
-        private string evRule;
-        private double evMultiplier;       
-        private List<TagValue> secIdList;
-       
         // BOND values
-        private string cusip;
-        private string ratings;
-        private string descAppend;
-        private string bondType;
-        private string couponType;
-        private bool callable = false;
-        private bool putable = false;
-        private double coupon = 0;
-        private bool convertible = false;
-        private string maturity;
-        private string issueDate;
-        private string nextOptionDate;
-        private string nextOptionType;
-        private bool nextOptionPartial = false;
-        private string notes;
 
         /**
-         * @brief A Contract object summarising this product.
+         * @brief A fully-defined Contract object.
          */
-        public Contract Summary
+        public Contract Contract
         {
-            get { return summary; }
-            set { summary = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -66,27 +30,35 @@ namespace IBApi
         */
         public string MarketName
         {
-            get { return marketName; }
-            set { marketName = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief The minimum allowed price variation.
-         * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price. Full information about the minimum increment at a particular price and exchange is only available from the IB Contract and Security Search site. 
+         * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price. Full information about the minimum increment price structure can be obtained with the reqMarketRule function or the IB Contract and Security Search site. 
         */
         public double MinTick
         {
-            get { return minTick; }
-            set { minTick = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief Allows execution and strike prices to be reported consistently with market data, historical data and the order price, i.e. Z on LIFFE is reported in Index points and not GBP.
+		* In TWS versions prior to 972, the price magnifier is used in defining future option strike prices (e.g. in the API the strike is specified in dollars, but in TWS it is specified in cents).
+		* In TWS versions 972 and higher, the price magnifier is not used in defining futures option strike prices so they are consistent in TWS and the API. 
         */
         public int PriceMagnifier
         {
-            get { return priceMagnifier; }
-            set { priceMagnifier = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -94,26 +66,33 @@ namespace IBApi
         */
         public string OrderTypes
         {
-            get { return orderTypes; }
-            set { orderTypes = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
-        * @brief Exchanges on which this product is traded.
+        * @brief Valid exchange fields when placing an order for this contract.\n
+		* The list of exchanges will is provided in the same order as the corresponding MarketRuleIds list.
         */
         public string ValidExchanges
         {
-            get { return validExchanges; }
-            set { validExchanges = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
-        * @brief Underlying's contract Id
+        * @brief For derivatives, the contract ID (conID) of the underlying instrument
         */
         public int UnderConId
         {
-            get { return underConId; }
-            set { underConId = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -121,8 +100,10 @@ namespace IBApi
         */
         public string LongName
         {
-            get { return longName; }
-            set { longName = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -130,8 +111,10 @@ namespace IBApi
         */
         public string ContractMonth
         {
-            get { return contractMonth; }
-            set { contractMonth = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -139,8 +122,10 @@ namespace IBApi
         */
         public string Industry
         {
-            get { return industry; }
-            set { industry = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -148,8 +133,10 @@ namespace IBApi
         */
         public string Category
         {
-            get { return category; }
-            set { category = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -157,37 +144,50 @@ namespace IBApi
         */
         public string Subcategory
         {
-            get { return subcategory; }
-            set { subcategory = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
-        * @brief The ID of the time zone for the trading hours of the product. For example, EST.
+        * @brief The time zone for the trading hours of the product. For example, EST.
         */
         public string TimeZoneId
         {
-            get { return timeZoneId; }
-            set { timeZoneId = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief The trading hours of the product.
          * This value will contain the trading hours of the current day as well as the next's. For example, 20090507:0700-1830,1830-2330;20090508:CLOSED.
+		 * In TWS versions 965+ there is an option in the Global Configuration API settings to return 1 month of trading hours.
+		 * In TWS version 970+, the format includes the date of the closing time to clarify potential ambiguity, ex: 20180323:0400-20180323:2000;20180326:0400-20180326:2000
+		 * The trading hours will correspond to the hours for the product on the associated exchange. The same instrument can have different hours on different exchanges.
         */
         public string TradingHours
         {
-            get { return tradingHours; }
-            set { tradingHours = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief The liquid hours of the product.
-         * This value will contain the liquid hours of the current day as well as the next's. For example, 20090507:0700-1830,1830-2330;20090508:CLOSED.
-        */
+        * This value will contain the liquid hours (regular trading hours) of the contract on the specified exchange. Format for TWS versions until 969: 20090507:0700-1830,1830-2330;20090508:CLOSED.
+		* In TWS versions 965+ there is an option in the Global Configuration API settings to return 1 month of trading hours.
+		* In TWS v970 and above, the format includes the date of the closing time to clarify potential ambiguity, e.g. 20180323:0930-20180323:1600;20180326:0930-20180326:1600
+		*/
         public string LiquidHours
         {
-            get { return liquidHours; }
-            set { liquidHours = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -196,8 +196,10 @@ namespace IBApi
         */
         public string EvRule
         {
-            get { return evRule; }
-            set { evRule = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -206,38 +208,139 @@ namespace IBApi
         */
         public double EvMultiplier
         {
-            get { return evMultiplier; }
-            set { evMultiplier = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief MD Size Multiplier. Returns the size multiplier for values returned to tickSize from a market data request. Generally 100 for US stocks and 1 for other instruments. 
+        */
+        public int MdSizeMultiplier
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief Aggregated group
+		* Indicates the smart-routing group to which a contract belongs.
+		* contracts which cannot be smart-routed have aggGroup = -1
+        */
+        public int AggGroup
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief A list of contract identifiers that the customer is allowed to view.
-         * CUSIP/ISIN/etc.
+        * CUSIP/ISIN/etc. For US stocks, receiving the ISIN requires the CUSIP market data subscription.
+		* For Bonds, the CUSIP or ISIN is input directly into the symbol field of the Contract class.  
         */
         public List<TagValue> SecIdList
         {
-            get { return secIdList; }
-            set { secIdList = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
-        * @brief The nine-character bond CUSIP or the 12-character SEDOL.
-         * For Bonds only.
+        * @brief For derivatives, the symbol of the underlying contract. 
+        */
+        public string UnderSymbol
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief For derivatives, returns the underlying security type. 
+        */
+        public string UnderSecType
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief The list of market rule IDs separated by comma
+		* Market rule IDs can be used to determine the minimum price increment at a given price. 
+        */
+        public string MarketRuleIds
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief Real expiration date. Requires TWS 968+ and API v973.04+. Python API specifically requires API v973.06+.
+        */
+        public string RealExpirationDate
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief Last trade time
+        */
+        public string LastTradeTime
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief Stock type
+        */
+        public string StockType
+        {
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        }
+
+        /**
+        * @brief The nine-character bond CUSIP.
+         * For Bonds only. Receiving CUSIPs requires a CUSIP market data subscription.
         */
         public string Cusip
         {
-            get { return cusip; }
-            set { cusip = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief Identifies the credit rating of the issuer.
-         * For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&P respectively.
+		* This field is not currently available from the TWS API. 
+        * For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&P respectively. Not currently implemented due to bond market data restrictions.
         */
         public string Ratings
         {
-            get { return ratings; }
-            set { ratings = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -246,8 +349,10 @@ namespace IBApi
         */
         public string DescAppend
         {
-            get { return descAppend; }
-            set { descAppend = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
@@ -255,109 +360,141 @@ namespace IBApi
         */
         public string BondType
         {
-            get { return bondType; }
-            set { bondType = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief The type of bond coupon.
-         * For Bonds only.
+		* This field is currently not available from the TWS API. 
+        * For Bonds only.
         */
         public string CouponType
         {
-            get { return couponType; }
-            set { couponType = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief If true, the bond can be called by the issuer under certain conditions.
-         * For Bonds only.
+		* This field is currently not available from the TWS API.
+        * For Bonds only.
         */
         public bool Callable
         {
-            get { return callable; }
-            set { callable = value; }
-        }
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        } = false;
 
         /**
         * @brief Values are True or False. If true, the bond can be sold back to the issuer under certain conditions.
-         * For Bonds only.
+		* This field is currently not available from the TWS API. 
+        * For Bonds only.
         */
         public bool Putable
         {
-            get { return putable; }
-            set { putable = value; }
-        }
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        } = false;
 
         /**
         * @brief The interest rate used to calculate the amount you will receive in interest payments over the course of the year.
-         * For Bonds only.
+        * This field is currently not available from the TWS API. 
+		* For Bonds only.
         */
         public double Coupon
         {
-            get { return coupon; }
-            set { coupon = value; }
-        }
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        } = 0;
 
         /**
         * @brief Values are True or False. If true, the bond can be converted to stock under certain conditions.
-         * For Bonds only.
+        * This field is currently not available from the TWS API. 
+		* For Bonds only.
         */
         public bool Convertible
         {
-            get { return convertible; }
-            set { convertible = value; }
-        }
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        } = false;
 
         /**
         * @brief he date on which the issuer must repay the face value of the bond.
-         * For Bonds only.
+        * This field is currently not available from the TWS API. 
+		* For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string Maturity
         {
-            get { return maturity; }
-            set { maturity = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /** 
         * @brief The date the bond was issued. 
-         * For Bonds only.
+        * This field is currently not available from the TWS API. 
+		* For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string IssueDate
         {
-            get { return issueDate; }
-            set { issueDate = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief Only if bond has embedded options. 
-         * Refers to callable bonds and puttable bonds. Available in TWS description window for bonds.
+		* This field is currently not available from the TWS API. 
+        * Refers to callable bonds and puttable bonds. Available in TWS description window for bonds.
         */
         public string NextOptionDate
         {
-            get { return nextOptionDate; }
-            set { nextOptionDate = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
         * @brief Type of embedded option.
+		* This field is currently not available from the TWS API. 
         * Only if bond has embedded options.
         */
         public string NextOptionType
         {
-            get { return nextOptionType; }
-            set { nextOptionType = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         /**
        * @brief Only if bond has embedded options.
-        * For Bonds only.
+	   * This field is currently not available from the TWS API. 
+       * For Bonds only.
        */
         public bool NextOptionPartial
         {
-            get { return nextOptionPartial; }
-            set { nextOptionPartial = value; }
-        }
+            //! @cond
+            get;
+            set;
+            //! @endcond
+        } = false;
 
         /**
         * @brief If populated for the bond in IB's database.
@@ -365,25 +502,27 @@ namespace IBApi
         */
         public string Notes
         {
-            get { return notes; }
-            set { notes = value; }
+            //! @cond
+            get;
+            set;
+            //! @endcond
         }
 
         public ContractDetails()
         {
-            summary = new Contract();
-            minTick = 0;
-            underConId = 0;
-            evMultiplier = 0;
+            Contract = new Contract();
+            MinTick = 0;
+            UnderConId = 0;
+            EvMultiplier = 0;
         }
 
-        public ContractDetails(Contract summary, String marketName,
-                double minTick, String orderTypes, String validExchanges, int underConId, String longName,
-                String contractMonth, String industry, String category, String subcategory,
-                String timeZoneId, String tradingHours, String liquidHours,
-                String evRule, double evMultiplier)
+        public ContractDetails(Contract summary, string marketName,
+                double minTick, string orderTypes, string validExchanges, int underConId, string longName,
+                string contractMonth, string industry, string category, string subcategory,
+                string timeZoneId, string tradingHours, string liquidHours,
+                string evRule, double evMultiplier, int aggGroup)
         {
-            Summary = summary;
+            Contract = summary;
             MarketName = marketName;
             MinTick = minTick;
             OrderTypes = orderTypes;
@@ -399,6 +538,7 @@ namespace IBApi
             LiquidHours = liquidHours;
             EvRule = evRule;
             EvMultiplier = evMultiplier;
+            AggGroup = aggGroup;
         }
     }
 }

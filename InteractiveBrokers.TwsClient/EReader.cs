@@ -1,10 +1,8 @@
-﻿/* Copyright (C) 2015 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Linq;
 using System.IO;
 
 namespace IBApi
@@ -42,9 +40,25 @@ namespace IBApi
         {
             new Thread(() =>
             {
-                while (eClientSocket.IsConnected())
-                    if (!putMessageToQueue())
-                        break;
+                try
+                {
+                    while (eClientSocket.IsConnected())
+                    {
+                        if (!eClientSocket.IsDataAvailable())
+                        {
+                            Thread.Sleep(1);
+                            continue;
+                        }
+
+                        if (!putMessageToQueue())
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    eClientSocket.Wrapper.error(ex);
+                    eClientSocket.eDisconnect();
+                }
 
                 eReaderSignal.issueSignal();
             }) { IsBackground = true }.Start();
@@ -104,19 +118,7 @@ namespace IBApi
                     throw new EClientException(EClientErrors.BAD_LENGTH);
                 }
 
-                var buf = new List<byte>();
-                var offset = 0;
-
-                while (offset < msgSize)
-                {
-                    var readBuf = eClientSocket.ReadByteArray(msgSize - offset);
-
-                    buf.AddRange(readBuf);
-
-                    offset += readBuf.Length;
-                }
-
-                return new EMessage(buf.ToArray());
+                return new EMessage(eClientSocket.ReadByteArray(msgSize));
             }
 
             if (inBuf.Count == 0)
@@ -125,7 +127,7 @@ namespace IBApi
             while (true)
                 try
                 {
-                    msgSize = new EDecoder(this.eClientSocket.ServerVersion, defaultWrapper).ParseAndProcessMsg(inBuf.ToArray());
+                    msgSize = new EDecoder(eClientSocket.ServerVersion, defaultWrapper).ParseAndProcessMsg(inBuf.ToArray());
                     break;
                 }
                 catch (EndOfStreamException)
@@ -135,12 +137,12 @@ namespace IBApi
 
                     AppendInBuf();
                 }
-            
+
             var msgBuf = new byte[msgSize];
 
             inBuf.CopyTo(0, msgBuf, 0, msgSize);
             inBuf.RemoveRange(0, msgSize);
-          
+
             if (inBuf.Count < defaultInBufSize && inBuf.Capacity > defaultInBufSize)
                 inBuf.Capacity = defaultInBufSize;
 
@@ -149,7 +151,7 @@ namespace IBApi
 
         private void AppendInBuf()
         {
-            inBuf.AddRange(eClientSocket.ReadByteArray(inBuf.Capacity - inBuf.Count));
+            inBuf.AddRange(eClientSocket.ReadAtLeastNBytes(inBuf.Capacity - inBuf.Count));
         }
     }
 }

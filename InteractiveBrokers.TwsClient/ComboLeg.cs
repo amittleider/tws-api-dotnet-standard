@@ -1,11 +1,5 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IBApi
 {
@@ -21,51 +15,27 @@ namespace IBApi
         public static int 	CLOSE = 2;
         public static int 	UNKNOWN = 3;
 
-        
-        private int conId;
-        private int ratio;
-        private string action;
-        private string exchange;
-        private int openClose;
-        private int shortSaleSlot;
-        private string designatedLocation;
-        private int exemptCode;
 
         /**
          * @brief The Contract's IB's unique id
          */
-        public int ConId
-        {
-            get {return conId; }
-            set { conId = value; }
-        }
+        public int ConId { get; set; }
 
         /**
           * @brief Select the relative number of contracts for the leg you are constructing. To help determine the ratio for a specific combination order, refer to the Interactive Analytics section of the User's Guide.
           */
-        public int Ratio
-        {
-            get { return ratio; }
-            set { ratio = value; }
-        }
+        public int Ratio { get; set; }
 
         /**
          * @brief The side (buy or sell) of the leg:\n
          *      - For individual accounts, only BUY and SELL are available. SSHORT is for institutions.
          */
-        public string Action
-        {
-            get { return action; }
-            set { action = value; }
-        }
+        public string Action { get; set; }
+
         /**
          * @brief The destination exchange to which the order will be routed.
          */
-        public string Exchange
-        {
-            get { return exchange; }
-            set { exchange = value; }
-        }
+        public string Exchange { get; set; }
 
         /**
         * @brief Specifies whether an order is an open or closing order.
@@ -75,39 +45,23 @@ namespace IBApi
         *      2 - Close. This value is only valid for institutional customers.\n
         *      3 - Unknown
         */
-        public int OpenClose
-        {
-            get { return openClose; }
-            set { openClose = value; }
-        }
+        public int OpenClose { get; set; }
 
         /**
          * @brief For stock legs when doing short selling.
          * Set to 1 = clearing broker, 2 = third party
          */
-        public int ShortSaleSlot
-        {
-            get { return shortSaleSlot; }
-            set { shortSaleSlot = value; }
-        }
+        public int ShortSaleSlot { get; set; }
 
         /**
          * @brief When ShortSaleSlot is 2, this field shall contain the designated location.
          */
-        public string DesignatedLocation
-        {
-            get { return designatedLocation; }
-            set { designatedLocation = value; }
-        }
+        public string DesignatedLocation { get; set; }
 
         /**
          * @brief DOC_TODO
          */
-        public int ExemptCode
-        {
-            get { return exemptCode; }
-            set { exemptCode = value; }
-        }
+        public int ExemptCode { get; set; }
 
         public ComboLeg()
         {

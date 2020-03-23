@@ -1,11 +1,7 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IBApi
 {
@@ -16,44 +12,16 @@ namespace IBApi
      */
     public class Contract
     {
-        private int conId;
-        private string symbol;
-        private string secType;
-        private string lastTradeDateOrContractMonth;
-        private double strike;
-        private string right;
-        private string multiplier;
-        private string exchange;
-        private string currency;
-        private string localSymbol;
-        private string primaryExch;
-        private string tradingClass;
-        private bool includeExpired;
-        private string secIdType;
-        private string secId;
-        private string comboLegsDescription;
-        private List<ComboLeg> comboLegs;
-        private UnderComp underComp;
-
-
         /**
         * @brief The unique IB contract identifier
         */
-        public int ConId
-        {
-            get { return conId; }
-            set { conId = value; }
-        }
+        public int ConId { get; set; }
 
 
         /**
          * @brief The underlying's asset symbol
          */
-        public string Symbol
-        {
-            get { return symbol; }
-            set { symbol = value; }
-        }
+        public string Symbol { get; set; }
 
         /**
          * @brief The security's type:
@@ -70,156 +38,94 @@ namespace IBApi
          *      NEWS- news
          *		FUND- mutual fund
 		 */
-        public string SecType
-        {
-            get { return secType; }
-            set { secType = value; }
-        }
+        public string SecType { get; set; }
 
         /**
         * @brief The contract's last trading day or contract month (for Options and Futures). Strings with format YYYYMM will be interpreted as the Contract Month whereas YYYYMMDD will be interpreted as Last Trading Day.
         */
-        public string LastTradeDateOrContractMonth
-        {
-            get { return lastTradeDateOrContractMonth; }
-            set { lastTradeDateOrContractMonth = value; }
-        }
+        public string LastTradeDateOrContractMonth { get; set; }
 
         /**
          * @brief The option's strike price
          */
-        public double Strike
-        {
-            get { return strike; }
-            set { strike = value; }
-        }
+        public double Strike { get; set; }
 
         /**
          * @brief Either Put or Call (i.e. Options). Valid values are P, PUT, C, CALL. 
          */
-        public string Right
-        {
-            get { return right; }
-            set { right = value; }
-        }
+        public string Right { get; set; }
 
         /**
          * @brief The instrument's multiplier (i.e. options, futures).
          */
-        public string Multiplier
-        {
-            get { return multiplier; }
-            set { multiplier = value; }
-        }
+        public string Multiplier { get; set; }
 
         /**
          * @brief The destination exchange.
          */
-        public string Exchange
-        {
-            get { return exchange; }
-            set { exchange = value; }
-        }
+        public string Exchange { get; set; }
 
         /**
-         * @brief The underlying's cuurrency
+         * @brief The underlying's currency
          */
-        public string Currency
-        {
-            get { return currency; }
-            set { currency = value; }
-        }
+        public string Currency { get; set; }
 
         /**
          * @brief The contract's symbol within its primary exchange
+		 * For options, this will be the OCC symbol
          */
-        public string LocalSymbol
-        {
-            get { return localSymbol; }
-            set { localSymbol = value; }
-        }
+        public string LocalSymbol { get; set; }
 
         /**
          * @brief The contract's primary exchange.
+		 * For smart routed contracts, used to define contract in case of ambiguity. 
+		 * Should be defined as native exchange of contract, e.g. ISLAND for MSFT
+		 * For exchanges which contain a period in name, will only be part of exchange name prior to period, i.e. ENEXT for ENEXT.BE
          */
-        public string PrimaryExch
-        {
-            get { return primaryExch; }
-            set { primaryExch = value; }
-        }
+        public string PrimaryExch { get; set; }
 
         /**
          * @brief The trading class name for this contract.
          * Available in TWS contract description window as well. For example, GBL Dec '13 future's trading class is "FGBL"
          */
-        public string TradingClass
-        {
-            get { return tradingClass; }
-            set { tradingClass = value; }
-        }
+        public string TradingClass { get; set; }
 
         /**
-        * @brief If set to true, contract details requests and historical data queries can be performed pertaining to expired contracts.
-        * Note: Historical data queries on expired contracts are limited to the last year of the contracts life, and are initially only supported for expired futures contracts.
+        * @brief If set to true, contract details requests and historical data queries can be performed pertaining to expired futures contracts.
+        * Expired options or other instrument types are not available.
         */
-        public bool IncludeExpired
-        {
-            get { return includeExpired; }
-            set { includeExpired = value; }
-        }
+        public bool IncludeExpired { get; set; }
 
         /**
          * @brief Security's identifier when querying contract's details or placing orders
-         *      SIN - Example: Apple: US0378331005
+         *      ISIN - Example: Apple: US0378331005
          *      CUSIP - Example: Apple: 037833100
-         *      SEDOL - Consists of 6-AN + check digit. Example: BAE: 0263494
-         *      RIC - Consists of exchange-independent RIC Root and a suffix identifying the exchange. Example: AAPL.O for Apple on NASDAQ.
          */
-        public string SecIdType
-        {
-            get { return secIdType; }
-            set { secIdType = value; }
-        }
+        public string SecIdType { get; set; }
 
         /**
         * @brief Identifier of the security type
         * @sa secIdType
         */
-        public string SecId
-        {
-            get { return secId; }
-            set { secId = value; }
-        }
+        public string SecId { get; set; }
 
-         /**
+        /**
          * @brief Description of the combo legs.
          */
-        public string ComboLegsDescription
-        {
-            get { return comboLegsDescription; }
-            set { comboLegsDescription = value; }
-        }
+        public string ComboLegsDescription { get; set; }
 
         /**
          * @brief The legs of a combined contract definition
          * @sa ComboLeg
          */
-        public List<ComboLeg> ComboLegs
-        {
-            get { return comboLegs; }
-            set { comboLegs = value; }
-        }
+        public List<ComboLeg> ComboLegs { get; set; }
 
         /**
          * @brief Delta and underlying price for Delta-Neutral combo orders.
          * Underlying (STK or FUT), delta and underlying price goes into this attribute.
-         * @sa UnderComp
+         * @sa DeltaNeutralContract
          */
-        public UnderComp UnderComp
-        {
-            get { return underComp; }
-            set { underComp = value; }
-        }
+        public DeltaNeutralContract DeltaNeutralContract { get; set; }
 
         public override string ToString()
         {

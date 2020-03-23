@@ -1,10 +1,5 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IBApi
 {
@@ -76,6 +71,26 @@ namespace IBApi
         public static readonly CodeMsgPair FAIL_SEND_CANACCOUNTUPDATESMULTI = new CodeMsgPair(556, "Cancel Account Updates Multi Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQSECDEFOPTPARAMS = new CodeMsgPair(557, "Request Security Definition Option Parameters Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQSOFTDOLLARTIERS = new CodeMsgPair(558, "Request Soft Dollar Tiers Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQFAMILYCODES = new CodeMsgPair(559, "Request Family Codes Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQMATCHINGSYMBOLS = new CodeMsgPair(560, "Request Matching Symbols Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQMKTDEPTHEXCHANGES = new CodeMsgPair(561, "Request Market Depth Exchanges Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQSMARTCOMPONENTS = new CodeMsgPair(562, "Request Smart Components Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQNEWSPROVIDERS = new CodeMsgPair(563, "Request News Providers Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQNEWSARTICLE = new CodeMsgPair(564, "Request News Article Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQHISTORICALNEWS = new CodeMsgPair(565, "Request Historical News Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQHEADTIMESTAMP = new CodeMsgPair(566, "Request Head Time Stamp Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQHISTOGRAMDATA = new CodeMsgPair(567, "Request Histogram Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELHISTOGRAMDATA = new CodeMsgPair(568, "Cancel Request Histogram Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELHEADTIMESTAMP = new CodeMsgPair(569, "Cancel Head Time Stamp Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQMARKETRULE = new CodeMsgPair(570, "Request Market Rule Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQPNL = new CodeMsgPair(571, "Request PnL Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELPNL = new CodeMsgPair(572, "Cancel PnL Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQPNLSINGLE = new CodeMsgPair(573, "Request PnL Single Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELPNLSINGLE = new CodeMsgPair(574, "Cancel PnL Single Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQHISTORICALTICKS = new CodeMsgPair(575, "Request Historical Ticks Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQTICKBYTICKDATA = new CodeMsgPair(576, "Request Tick-By-Tick Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CANCELTICKBYTICKDATA = new CodeMsgPair(577, "Cancel Tick-By-Tick Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQCOMPLETEDORDERS = new CodeMsgPair(578, "Request Completed Orders Sending Error - ");
 
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
     
@@ -86,24 +101,15 @@ namespace IBApi
   */
     public class CodeMsgPair
     {
-        private int code;
-        private string message;
-
         public CodeMsgPair(int code, string message)
         {
-            this.code = code;
-            this.message = message;
+            Code = code;
+            Message = message;
         }
 
-        public int Code
-        {
-            get { return code; } 
-        }
+        public int Code { get; }
 
-        public string Message
-        {
-            get { return message; }
-        }
+        public string Message { get; }
     }
 
 }

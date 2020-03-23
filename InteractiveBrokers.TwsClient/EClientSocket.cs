@@ -1,9 +1,8 @@
-﻿/* Copyright (C) 2015 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -13,7 +12,7 @@ namespace IBApi
     /**
      * @class EClientSocket
      * @brief TWS/Gateway client class
-     * This client class contains all the available methods to communicate with IB. Up to eight clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.
+     * This client class contains all the available methods to communicate with IB. Up to 32 clients can be connected to a single instance of the TWS/Gateway simultaneously. From herein, the TWS/Gateway will be referred to as the Host.
      */
     public class EClientSocket : EClient,  EClientMsgSink
     {
@@ -49,7 +48,7 @@ namespace IBApi
                 {
                     List<byte> buf = new List<byte>();
 
-                    buf.AddRange(UTF8Encoding.UTF8.GetBytes(clientId.ToString()));
+                    buf.AddRange(Encoding.UTF8.GetBytes(clientId.ToString()));
                     buf.Add(Constants.EOL);
                     socketTransport.Send(new EMessage(buf.ToArray()));
                 }
@@ -58,7 +57,7 @@ namespace IBApi
             ServerTime = time;
             isConnected = true;
 
-            if (!this.AsyncEConnect)
+            if (!AsyncEConnect)
                 startApi();
         }
 
@@ -128,13 +127,14 @@ namespace IBApi
         }
 
         private EReaderSignal eReaderSignal;
+        private int redirectCount;
 
         protected override uint prepareBuffer(BinaryWriter paramsList)
         {
             var rval = (uint)paramsList.BaseStream.Position;
 
-            if (this.useV100Plus)
-                paramsList.Write((int)0);
+            if (useV100Plus)
+                paramsList.Write(0);
 
             return rval;
         }
@@ -172,10 +172,30 @@ namespace IBApi
                 if (!int.TryParse(srv[1], out port))
                     throw new EClientException(EClientErrors.BAD_MESSAGE);
 
-            eDisconnect();
+
+            ++redirectCount;
+
+            if (redirectCount > Constants.REDIRECT_COUNT_MAX)
+            {
+                eDisconnect();
+                wrapper.error(clientId, EClientErrors.CONNECT_FAIL.Code, "Redirect count exceeded");
+                return;
+            }
+
+            eDisconnect(false);
             eConnect(srv[0], port, clientId, extraAuth);
 
             return;
+        }
+
+        public override void eDisconnect(bool resetState = true)
+        {
+            if (resetState)
+            {
+                redirectCount = 0;
+            }
+
+            base.eDisconnect(resetState);
         }
     }
 }
